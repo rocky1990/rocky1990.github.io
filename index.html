@@ -7,7 +7,7 @@
 
 <html class="theme-next gemini use-motion" lang="">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
@@ -121,7 +121,7 @@
 
 
 
-  <title>Dreamlike</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Dreamlike</title>
   
 
 
@@ -140,7 +140,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left 
+  <div class="container sidebar-position-left 
   page-home">
     <div class="headband"></div>
 
@@ -332,11 +332,30 @@
       
         
           
-            <h1 id="整数规划"><a href="#整数规划" class="headerlink" title="整数规划"></a>整数规划</h1><blockquote>
-<p>整理自《最优化理论与算法》-陈宝林</p>
-</blockquote>
-<hr>
-<p><br>　　除目标函数和约束函数是线性函数外，还要求决策变量取整数值，这类问题称为<strong>线性整数规划</strong>，剪成为<strong>整数规划</strong>。其中，如果要求<strong>所有</strong>变量取整数，则称为<strong>纯整数规划</strong>；如果要求部分变量取整数值，则称为<strong>混合整数规划</strong>；如果要求变量只取0或1，则称为<strong>0-1规划</strong>，一般表示为<br><br>$$<br>\begin{aligned}<br>min　&amp;\textbf{\textit{cx}}<br>\s.t.　&amp;\textbf{\textit {Ax}}=\textbf{\textit{b}}　　　　　　　　　　　　(P_0)\&amp;<br>\textbf{\textit{x}}\geq\textbf{\textit{0}}，x_i为整数，\forall j\in IN<br>\end{aligned}<br>$$<br>　　其中$IN$是取整数的变量的下标记集，$A$为$m\times n$矩阵，$c$是$n$维行向量，$b$是$m$维列向量。<br>　　在求解整数规划时，容易想到先解相应的线性规划，得到最优解后再四舍五入，作为整数规划的最优解。然而，这种作法一般不可取，经四舍五入得到的解不一定是整数规划的<strong>可行解</strong>；即使是可行解，也不一定是整数规划的最优解，例如下列整数规划：<br>$$<br>\begin{aligned}<br>min　&amp;-13x_1-3x_2\<br>s.t.　&amp;-8x_1+11x_2\leq 82,\<br>&amp;9x_1+2x_2\leq 40,\<br>&amp;x_1,x_2\geq 0,x_1,x_2取整数值<br>\end{aligned}<br>$$<br>　　去掉整数限制后，用单纯形方法求得线性规划的最优解为$(x_1,x_2)=(2.4,9.2)^T$,目标函数最优值$f=-58.8$。去掉尾数0.4和0.2后，得到的整数点$(x_1,x_2)=(2,9)$，不满足第1个约束条件，因此不是整数规划的可行点，当然不是整数规划的最优解。事实上，整数规划存在最优解，其最优解就是$x_1=4,x_2=2$，目标函数的最优值$f=-58$。因此，一般来说，不宜用线性规划最优解的整数部分作为整数规划的最优解。</p>
+            <body>
+# 整数规划
+>整理自《最优化理论与算法》-陈宝林
+---
+<br>　　除目标函数和约束函数是线性函数外，还要求决策变量取整数值，这类问题称为**线性整数规划**，剪成为**整数规划**。其中，如果要求**所有**变量取整数，则称为**纯整数规划**；如果要求部分变量取整数值，则称为**混合整数规划**；如果要求变量只取0或1，则称为**0-1规划**，一般表示为<br>
+$$
+\begin{aligned}
+min　&\textbf{\textit{cx}}
+\\s.t.　&\textbf{\textit {Ax}}=\textbf{\textit{b}}　　　　　　　　　　　　(P_0)\\&
+\textbf{\textit{x}}\geq\textbf{\textit{0}}，x_i为整数，\forall j\in IN
+\end{aligned}
+$$
+　　其中$IN$是取整数的变量的下标记集，$A$为$m\times n$矩阵，$c$是$n$维行向量，$b$是$m$维列向量。
+　　在求解整数规划时，容易想到先解相应的线性规划，得到最优解后再四舍五入，作为整数规划的最优解。然而，这种作法一般不可取，经四舍五入得到的解不一定是整数规划的**可行解**；即使是可行解，也不一定是整数规划的最优解，例如下列整数规划：
+$$
+\begin{aligned}
+min　&-13x_1-3x_2\\
+s.t.　&-8x_1+11x_2\leq 82,\\
+&9x_1+2x_2\leq 40,\\
+&x_1,x_2\geq 0,x_1,x_2取整数值
+\end{aligned}
+$$
+　　去掉整数限制后，用单纯形方法求得线性规划的最优解为$(x_1,x_2)=(2.4,9.2)^T$,目标函数最优值$f=-58.8$。去掉尾数0.4和0.2后，得到的整数点$(x_1,x_2)=(2,9)$，不满足第1个约束条件，因此不是整数规划的可行点，当然不是整数规划的最优解。事实上，整数规划存在最优解，其最优解就是$x_1=4,x_2=2$，目标函数的最优值$f=-58$。因此，一般来说，不宜用线性规划最优解的整数部分作为整数规划的最优解。
+</body>
 
           
         
@@ -760,7 +779,7 @@
       
         
           
-            <h1 id="Linear-Relaxation"><a href="#Linear-Relaxation" class="headerlink" title="Linear Relaxation"></a>Linear Relaxation</h1><p>　　线性松弛是指将<strong>(混合)整数线性规划问题</strong>中的整数约束去掉。例如,在<strong>0-1整数规划</strong>中，所有的约束的形式为$$x_i\subset{0,1}$$<br>　　则原问题的线性送至为一系列线性约束：$$0 \leq x_i \leq1$$<br>　　松弛后的结果为线性规划。该方法将一个<strong>NP-hard</strong>最优化问题(<strong>整数规划问题</strong>)转换成一个相关联的可在<strong>多项式时间</strong>解决的问题(<strong>线性规划问题</strong>)。</p>
+            <h1 id="Linear-Relaxation"><a href="#Linear-Relaxation" class="headerlink" title="Linear Relaxation"></a>Linear Relaxation</h1><p>　　线性松弛是指将<strong>(混合)整数线性规划问题</strong>中的整数约束去掉。例如,在<strong>0-1整数规划</strong>中，所有的约束的形式为<script type="math/tex">x_i\subset\{0,1\}</script><br>　　则原问题的线性送至为一系列线性约束：<script type="math/tex">0 \leq x_i \leq1</script><br>　　松弛后的结果为线性规划。该方法将一个<strong>NP-hard</strong>最优化问题(<strong>整数规划问题</strong>)转换成一个相关联的可在<strong>多项式时间</strong>解决的问题(<strong>线性规划问题</strong>)。</p>
 
           
         
@@ -1102,7 +1121,7 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
