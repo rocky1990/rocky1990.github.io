@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="利用百度地图得到行政区域轮廓线 利用到的API函数：Boundary()">
+<meta name="description" content="利用百度地图得到行政区域轮廓线利用到的API函数：Boundary()  代码实例： 1234567891011121314151617181920212223242526272829303132333435363738394041&amp;lt;!DOCTYPE html PUBLIC &amp;quot;-//W3C//DTD XHTML 1.0 Transitional//EN&amp;quot; &amp;quot;ht">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用百度地图得到行政区域轮廓线">
 <meta property="og:url" content="http://yoursite.com/2018/12/14/利用百度地图得到行政区域轮廓线/index.html">
 <meta property="og:site_name" content="Dreamlike">
-<meta property="og:description" content="利用百度地图得到行政区域轮廓线 利用到的API函数：Boundary()">
+<meta property="og:description" content="利用百度地图得到行政区域轮廓线利用到的API函数：Boundary()  代码实例： 1234567891011121314151617181920212223242526272829303132333435363738394041&amp;lt;!DOCTYPE html PUBLIC &amp;quot;-//W3C//DTD XHTML 1.0 Transitional//EN&amp;quot; &amp;quot;ht">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2018/12/14/利用百度地图得到行政区域轮廓线/APIboundary.jpg">
-<meta property="og:updated_time" content="2018-12-14T02:30:53.390Z">
+<meta property="og:updated_time" content="2018-12-14T02:36:16.770Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用百度地图得到行政区域轮廓线">
-<meta name="twitter:description" content="利用百度地图得到行政区域轮廓线 利用到的API函数：Boundary()">
+<meta name="twitter:description" content="利用百度地图得到行政区域轮廓线利用到的API函数：Boundary()  代码实例： 1234567891011121314151617181920212223242526272829303132333435363738394041&amp;lt;!DOCTYPE html PUBLIC &amp;quot;-//W3C//DTD XHTML 1.0 Transitional//EN&amp;quot; &amp;quot;ht">
 <meta name="twitter:image" content="http://yoursite.com/2018/12/14/利用百度地图得到行政区域轮廓线/APIboundary.jpg">
 
 
@@ -333,9 +333,10 @@
       
 
       
-        <h1 id="利用百度地图得到行政区域轮廓线">利用百度地图得到行政区域轮廓线</h1>
-<p>利用到的API函数：Boundary()</p>
-<p><img src="/2018/12/14/利用百度地图得到行政区域轮廓线/APIboundary.jpg"></p>
+        <h1 id="利用百度地图得到行政区域轮廓线"><a href="#利用百度地图得到行政区域轮廓线" class="headerlink" title="利用百度地图得到行政区域轮廓线"></a>利用百度地图得到行政区域轮廓线</h1><p>利用到的API函数：Boundary()</p>
+<p><img src="/2018/12/14/利用百度地图得到行政区域轮廓线/APIboundary.jpg" alt=""></p>
+<p>代码实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;</span><br><span class="line">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;</span><br><span class="line">&lt;title&gt;获取地区轮廓线&lt;/title&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;http://api.map.baidu.com/api?v=1.3&quot;&gt;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">body&#123;font-size:13px;margin:10px&#125;</span><br><span class="line">#container&#123;width:800px;height:500px;border:1px solid gray;margin:auto auto;&#125;</span><br><span class="line">#controler &#123;text-align:center;margin-top:30px;&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;container&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div id=&quot;controler&quot;&gt;</span><br><span class="line">输入省、直辖市或县名称：&lt;input type=&quot;text&quot; id=&quot;districtName&quot; style=&quot;width:80px&quot; value=&quot;合肥市&quot;&gt;</span><br><span class="line">&lt;input type=&quot;button&quot; onclick=&quot;getBoundary()&quot; value=&quot;获取轮廓线&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">var map = new BMap.Map(&quot;container&quot;);</span><br><span class="line">map.centerAndZoom(new BMap.Point(116.403765, 39.914850), 5);</span><br><span class="line">map.addControl(new BMap.NavigationControl(&#123;type: BMAP_NAVIGATION_CONTROL_SMALL&#125;));</span><br><span class="line">map.enableScrollWheelZoom();</span><br><span class="line"></span><br><span class="line">function getBoundary()&#123;</span><br><span class="line">    var bdary = new BMap.Boundary();</span><br><span class="line">    var name = document.getElementById(&quot;districtName&quot;).value;</span><br><span class="line">    bdary.get(name, function(rs)&#123;       //获取行政区域</span><br><span class="line">        map.clearOverlays();        //清除地图覆盖物</span><br><span class="line">        var count = rs.boundaries.length; //行政区域的点有多少个</span><br><span class="line">        for(var i = 0; i &lt; count; i++)&#123;</span><br><span class="line">            var ply = new BMap.Polygon(rs.boundaries[i], &#123;strokeWeight: 2, strokeColor: &quot;#ff0000&quot;&#125;); //建立多边形覆盖物</span><br><span class="line">            map.addOverlay(ply);  //添加覆盖物</span><br><span class="line">            map.setViewport(ply.getPath());    //调整视野</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
       
     </div>
