@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="聚类分析 聚类分析是非监督学习的很重要的领域。所谓非监督学习，就是数据是没有类别标记的，算法要从对原始数据的探索中提取出一定的规律。而聚类分析就是试图将数据集中的样本划分为若干个不相交的子集，每个子集称为一个“簇”。下面是sklearn中对各种聚类算法的比较。 ### 1.密度聚类（DBSCAN） 密度聚类的思想是不同于KMeans的，但是更符合我们人类的思维，基本的思想是通过是否紧密相连来判断">
+<meta name="description" content="聚类分析聚类分析是非监督学习的很重要的领域。所谓非监督学习，就是数据是没有类别标记的，算法要从对原始数据的探索中提取出一定的规律。而聚类分析就是试图将数据集中的样本划分为若干个不相交的子集，每个子集称为一个“簇”。下面是sklearn中对各种聚类算法的比较。 1.密度聚类（DBSCAN）密度聚类的思想是不同于KMeans的，但是更符合我们人类的思维，基本的思想是通过是否紧密相连来判断样本点是否属于">
 <meta property="og:type" content="article">
 <meta property="og:title" content="聚类分析">
 <meta property="og:url" content="http://yoursite.com/2018/12/18/聚类分析/index.html">
 <meta property="og:site_name" content="Dreamlike">
-<meta property="og:description" content="聚类分析 聚类分析是非监督学习的很重要的领域。所谓非监督学习，就是数据是没有类别标记的，算法要从对原始数据的探索中提取出一定的规律。而聚类分析就是试图将数据集中的样本划分为若干个不相交的子集，每个子集称为一个“簇”。下面是sklearn中对各种聚类算法的比较。 ### 1.密度聚类（DBSCAN） 密度聚类的思想是不同于KMeans的，但是更符合我们人类的思维，基本的思想是通过是否紧密相连来判断">
+<meta property="og:description" content="聚类分析聚类分析是非监督学习的很重要的领域。所谓非监督学习，就是数据是没有类别标记的，算法要从对原始数据的探索中提取出一定的规律。而聚类分析就是试图将数据集中的样本划分为若干个不相交的子集，每个子集称为一个“簇”。下面是sklearn中对各种聚类算法的比较。 1.密度聚类（DBSCAN）密度聚类的思想是不同于KMeans的，但是更符合我们人类的思维，基本的思想是通过是否紧密相连来判断样本点是否属于">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2018/12/18/聚类分析/f1.jpg">
-<meta property="og:updated_time" content="2018-12-18T07:58:30.598Z">
+<meta property="og:updated_time" content="2018-12-18T08:10:32.544Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聚类分析">
-<meta name="twitter:description" content="聚类分析 聚类分析是非监督学习的很重要的领域。所谓非监督学习，就是数据是没有类别标记的，算法要从对原始数据的探索中提取出一定的规律。而聚类分析就是试图将数据集中的样本划分为若干个不相交的子集，每个子集称为一个“簇”。下面是sklearn中对各种聚类算法的比较。 ### 1.密度聚类（DBSCAN） 密度聚类的思想是不同于KMeans的，但是更符合我们人类的思维，基本的思想是通过是否紧密相连来判断">
+<meta name="twitter:description" content="聚类分析聚类分析是非监督学习的很重要的领域。所谓非监督学习，就是数据是没有类别标记的，算法要从对原始数据的探索中提取出一定的规律。而聚类分析就是试图将数据集中的样本划分为若干个不相交的子集，每个子集称为一个“簇”。下面是sklearn中对各种聚类算法的比较。 1.密度聚类（DBSCAN）密度聚类的思想是不同于KMeans的，但是更符合我们人类的思维，基本的思想是通过是否紧密相连来判断样本点是否属于">
 <meta name="twitter:image" content="http://yoursite.com/2018/12/18/聚类分析/f1.jpg">
 
 
@@ -333,19 +333,51 @@
       
 
       
-        <h2 id="聚类分析">聚类分析</h2>
-<p>聚类分析是<strong>非监督学习</strong>的很重要的领域。所谓<strong>非监督学习</strong>，就是数据是没有<strong>类别</strong>标记的，算法要从对原始数据的探索中提取出一定的规律。而聚类分析就是试图将数据集中的样本划分为若干个不相交的子集，每个子集称为一个“<strong>簇</strong>”。下面是sklearn中对各种聚类算法的比较。 ### 1.密度聚类（DBSCAN） 密度聚类的思想是不同于KMeans的，但是更符合我们人类的思维，基本的思想是通过是否紧密相连来判断样本点是否属于一个簇。代表性的算法就是DBSCAN (Density-Based Spatial Clustering of Applications with Noise，具有噪声的基于密度的聚类方法),K-Means，BIRCH这些一般只适用于凸样本集的聚类相比，DBSCAN既可以适用于凸样本集，也可以适用于非凸样本集。它基于一组邻域参数<span class="math inline">\((\epsilon,MinPts)\)</span>来表征某处样本是否是紧密的。在介绍算法之前先介绍一些概念。 #### (4) 密度聚类原理 DBSCAN是一种基于密度的聚类算法，这类密度聚类算法一般假定类别可以通过样本分布的紧密程度决定。同一类别的样本，他们之间的紧密相连的，也就是说，在该类别任意样本周围不远处一定有同类别的样本存在。</p>
-<p>通过将紧密相连的样本划为一类，这样就得到了一个聚类类别。通过将所有各组紧密相连的样本划为各个不同的类别，则我们就得到了最终的所有聚类类别结果。 #### (2)基本概念 * <span class="math inline">\(\epsilon\)</span><strong>-邻域</strong>： 即对于样本点<span class="math inline">\(x_i\)</span>,与它的距离在<span class="math inline">\(\epsilon\)</span>之内的属于样本集<span class="math inline">\(D\)</span>中的点的集合，即<span class="math inline">\(N_\epsilon(x_j)=\{x_i \in D\vert dist(x_i,x_j)\leq\epsilon\}\)</span> * <strong>核心对象</strong>： 若<span class="math inline">\(x_i\)</span>的<span class="math inline">\(\epsilon\)</span>-邻域至少包含<span class="math inline">\(MinPts\)</span>个样本，即<span class="math inline">\(\vert N_\epsilon(x_j)\ge MinPts\vert\)</span>，那么<span class="math inline">\(x_j\)</span>是一个核心对象。也即是说在核心对象周围的点相对于邻域参数来说是致密的。 * <strong>密度直达</strong>：如果<span class="math inline">\(x_i\)</span>位于核心对象<span class="math inline">\(x_j\)</span>的<span class="math inline">\(\epsilon\)</span>-邻域中，则称<span class="math inline">\(x_i\)</span>由<span class="math inline">\(x_j\)</span>出发是密度直达的。 * <strong>密度可达</strong>：如果存在一个样本序列<span class="math inline">\(p_1,p_2,...,p_n\)</span>,样本皆为核心对象，<span class="math inline">\(x_i\)</span>由<span class="math inline">\(p_1\)</span>密度直达，<span class="math inline">\(x_j\)</span>由<span class="math inline">\(p_n\)</span>密度直达，且<span class="math inline">\(p_(k+1)\)</span>由<span class="math inline">\(p_k\)</span>密度直达，则称<span class="math inline">\(x_i\)</span>由<span class="math inline">\(x_j\)</span>出发是密度可达的。也即是说密度可达满足传递性，但不满足对称性，这个可由密度直达的不对称性得出。 * <strong>密度相连</strong>：对于<span class="math inline">\(x_i\)</span>和<span class="math inline">\(x_j\)</span>如果存在核心对象<span class="math inline">\(x_k\)</span>，使<span class="math inline">\(x_i\)</span>和<span class="math inline">\(x_j\)</span>均由<span class="math inline">\(x_k\)</span>密度可达，则称<span class="math inline">\(x_i\)</span>和<span class="math inline">\(x_j\)</span>密度相连。注意密度相连关系是满足对称性的。 <img src="/2018/12/18/聚类分析/f1.jpg"> 上图为“密度直达”和“密度可达”概念示意描述。根据前文基本概念的描述知道：由于有标记的各点­M、P、O和R的Eps近邻均包含3个以上的点，因此它们都是核对象；M­是从P“密度直达”；而Q则是从­M“密度直达”；基于上述结果，Q是从P“密度可达”；但P从Q无法“密度可达”(非对称)。类似地，S和R从O是“密度可达”的；O、R和S均是“密度相连”（对称）的。 #### (3)DBSCAN密度聚类思想 　　　　DBSCAN的聚类定义很简单：由密度可达关系导出的最大密度相连的样本集合，即为我们最终聚类的一个类别，或者说一个簇。</p>
+        <h2 id="聚类分析"><a href="#聚类分析" class="headerlink" title="聚类分析"></a>聚类分析</h2><p>聚类分析是<strong>非监督学习</strong>的很重要的领域。所谓<strong>非监督学习</strong>，就是数据是没有<strong>类别</strong>标记的，算法要从对原始数据的探索中提取出一定的规律。而聚类分析就是试图将数据集中的样本划分为若干个不相交的子集，每个子集称为一个“<strong>簇</strong>”。下面是sklearn中对各种聚类算法的比较。</p>
+<h3 id="1-密度聚类（DBSCAN）"><a href="#1-密度聚类（DBSCAN）" class="headerlink" title="1.密度聚类（DBSCAN）"></a>1.密度聚类（DBSCAN）</h3><p>密度聚类的思想是不同于KMeans的，但是更符合我们人类的思维，基本的思想是通过是否紧密相连来判断样本点是否属于一个簇。代表性的算法就是DBSCAN (Density-Based Spatial Clustering of Applications with Noise，具有噪声的基于密度的聚类方法),K-Means，BIRCH这些一般只适用于凸样本集的聚类相比，DBSCAN既可以适用于凸样本集，也可以适用于非凸样本集。它基于一组邻域参数$(\epsilon,MinPts)$来表征某处样本是否是紧密的。在介绍算法之前先介绍一些概念。</p>
+<h4 id="4-密度聚类原理"><a href="#4-密度聚类原理" class="headerlink" title="(4) 密度聚类原理"></a>(4) 密度聚类原理</h4><p>DBSCAN是一种基于密度的聚类算法，这类密度聚类算法一般假定类别可以通过样本分布的紧密程度决定。同一类别的样本，他们之间的紧密相连的，也就是说，在该类别任意样本周围不远处一定有同类别的样本存在。</p>
+<p>通过将紧密相连的样本划为一类，这样就得到了一个聚类类别。通过将所有各组紧密相连的样本划为各个不同的类别，则我们就得到了最终的所有聚类类别结果。</p>
+<h4 id="2-基本概念"><a href="#2-基本概念" class="headerlink" title="(2)基本概念"></a>(2)基本概念</h4><ul>
+<li>$\epsilon$<strong>-邻域</strong>： 即对于样本点$x_i$,与它的距离在$\epsilon$之内的属于样本集$D$中的点的集合，即$N_\epsilon(x_j)=\{x_i \in D\vert dist(x_i,x_j)\leq\epsilon\}$</li>
+<li><strong>核心对象</strong>： 若$x_i$的$\epsilon$-邻域至少包含$MinPts$个样本，即$\vert N_\epsilon(x_j)\ge MinPts\vert$，那么$x_j$是一个核心对象。也即是说在核心对象周围的点相对于邻域参数来说是致密的。</li>
+<li><strong>密度直达</strong>：如果$x_i$位于核心对象$x_j$的$\epsilon$-邻域中，则称$x_i$由$x_j$出发是密度直达的。</li>
+<li><strong>密度可达</strong>：如果存在一个样本序列$p_1,p_2,…,p_n$,样本皆为核心对象，$x_i$由$p_1$密度直达，$x_j$由$p_n$密度直达，且$p_(k+1)$由$p_k$密度直达，则称$x_i$由$x_j$出发是密度可达的。也即是说密度可达满足传递性，但不满足对称性，这个可由密度直达的不对称性得出。</li>
+<li><strong>密度相连</strong>：对于$x_i$和$x_j$如果存在核心对象$x_k$，使$x_i$和$x_j$均由$x_k$密度可达，则称$x_i$和$x_j$密度相连。注意密度相连关系是满足对称性的。<br><img src="/2018/12/18/聚类分析/f1.jpg" alt=""><br>上图为“密度直达”和“密度可达”概念示意描述。根据前文基本概念的描述知道：由于有标记的各点­M、P、O和R的Eps近邻均包含3个以上的点，因此它们都是核对象；M­是从P“密度直达”；而Q则是从­M“密度直达”；基于上述结果，Q是从P“密度可达”；但P从Q无法“密度可达”(非对称)。类似地，S和R从O是“密度可达”的；O、R和S均是“密度相连”（对称）的。<h4 id="3-DBSCAN密度聚类思想"><a href="#3-DBSCAN密度聚类思想" class="headerlink" title="(3)DBSCAN密度聚类思想"></a>(3)DBSCAN密度聚类思想</h4>　　　　DBSCAN的聚类定义很简单：由密度可达关系导出的最大密度相连的样本集合，即为我们最终聚类的一个类别，或者说一个簇。</li>
+</ul>
 <p>　　　　这个DBSCAN的簇里面可以有一个或者多个核心对象。如果只有一个核心对象，则簇里其他的非核心对象样本都在这个核心对象的ϵ-邻域里；如果有多个核心对象，则簇里的任意一个核心对象的ϵ-邻域中一定有一个其他的核心对象，否则这两个核心对象无法密度可达。这些核心对象的ϵ-邻域里所有的样本的集合组成的一个DBSCAN聚类簇。</p>
 <p>　　　　那么怎么才能找到这样的簇样本集合呢？DBSCAN使用的方法很简单，它任意选择一个没有类别的核心对象作为种子，然后找到所有这个核心对象能够密度可达的样本集合，即为一个聚类簇。接着继续选择另一个没有类别的核心对象去寻找密度可达的样本集合，这样就得到另一个聚类簇。一直运行到所有核心对象都有类别为止。</p>
 <p>　　　　基本上这就是DBSCAN算法的主要内容了，是不是很简单？但是我们还是有三个问题没有考虑。</p>
 <p>　　　　第一个是一些异常样本点或者说少量游离于簇外的样本点，这些点不在任何一个核心对象在周围，在DBSCAN中，我们一般将这些样本点标记为噪音点。</p>
 <p>　　　　第二个是距离的度量问题，即如何计算某样本和核心对象样本的距离。在DBSCAN中，一般采用最近邻思想，采用某一种距离度量来衡量样本距离，比如欧式距离。这和KNN分类算法的最近邻思想完全相同。对应少量的样本，寻找最近邻可以直接去计算所有样本的距离，如果样本量较大，则一般采用KD树或者球树来快速的搜索最近邻。如果大家对于最近邻的思想，距离度量，KD树和球树不熟悉，建议参考之前写的另一篇文章K近邻法(KNN)原理小结。</p>
-<p>　　　　第三种问题比较特殊，某些样本可能到两个核心对象的距离都小于ϵ，但是这两个核心对象由于不是密度直达，又不属于同一个聚类簇，那么如果界定这个样本的类别呢？一般来说，此时DBSCAN采用先来后到，先进行聚类的类别簇会标记这个样本为它的类别。也就是说DBSCAN的算法不是完全稳定的算法。 #### (4)DBSCAN聚类算法 <strong>算法表达一</strong>： 输入：样本集<span class="math inline">\(D=(x_1,x_2,...,x_m)\)</span>，邻域参数<span class="math inline">\((\epsilon,MinPts)\)</span>，样本距离度量方式。 输出:簇划分<span class="math inline">\(C\)</span> 1. 初始化核心对象集合<span class="math inline">\(\Omega=\empty\)</span>，初始化聚类簇数<span class="math inline">\(k=0\)</span>，初始化未访问的样本集合<span class="math inline">\(\Gamma=D\)</span>，簇划分<span class="math inline">\(C=\empty\)</span> 2. 对于<span class="math inline">\(j=1,2,...,m\)</span>，按下面的步骤找出所有的核心对象： a)通过距离度量方式，找到样本<span class="math inline">\(x_j\)</span>的<span class="math inline">\(\epsilon\)</span>-邻域子样本集<span class="math inline">\(N_\epsilon(x_j)\)</span> b)如果子样本集的样本个数满足<span class="math inline">\(\vert N_\epsilon(x_j)\vert\ge MinPts\)</span>，将样本<span class="math inline">\(x_j\)</span>加入核心对象样本集合：<span class="math inline">\(\Omega=\Omega\cup \{x_j\}\)</span> 3. 如果核心对象集合<span class="math inline">\(\Omega=\empty\)</span>，则算法结束，否则转入步骤4 4. 在核心对象集合<span class="math inline">\(\Omega\)</span>中，随机选择一个核心对象<span class="math inline">\(o\)</span>，初始化当前簇核心对象列队<span class="math inline">\(\Omega_{cur}=\{o\}\)</span>，初始化类别序号<span class="math inline">\(k=k+1\)</span>，初始化当前簇样本集合<span class="math inline">\(C_k=\{o\}\)</span>，更新未访问样本集合<span class="math inline">\(\Gamma=\Gamma-{o}\)</span> 5. 如果当前簇核心对象列队<span class="math inline">\(\Omega_{cur}\ne\empty\)</span>,转入步骤6，否则当<span class="math inline">\(\Omega_{cur}=\empty\)</span>，则当前聚类簇<span class="math inline">\(C_k\)</span>生成完毕，更新簇划分<span class="math inline">\(C=\{C_1,C_2,...,C_k\}\)</span>，更新核心对象集合<span class="math inline">\(\Omega=\Omega-C_k\)</span>，转入步骤3 5. 在当前簇核心对象队列<span class="math inline">\(\Omega_{cur}\)</span>中取出一个核心对象，通过邻域距离阈值<span class="math inline">\(\epsilon\)</span>找出所有的<span class="math inline">\(\epsilon\)</span>-邻域子样本集<span class="math inline">\(N_\epsilon(o^\prime)\)</span>，令<span class="math inline">\(\Delta=N_\epsilon(o^\prime)\cap\Gamma\)</span>，更新当前簇样本集合<span class="math inline">\(C_k=C_k\cup \Delta\)</span>，更新未访问样本集合<span class="math inline">\(\Gamma=\Gamma-\Delta\)</span>，更新<span class="math inline">\(\Omega_{cur}=\Omega_{cur}\cup(\Delta\cap\Omega)-o^\prime\)</span>，转入步骤5</p>
-<p>输出结果为：簇划分<span class="math inline">\(C=\{C_1,C_2,...,C_k\}\)</span></p>
-<p><strong>算法表达二</strong>： <strong>输入</strong>： <span class="math inline">\(D\)</span>：一个包含<span class="math inline">\(n\)</span>个对象的数据集 <span class="math inline">\(\epsilon\)</span>：半径参数 <span class="math inline">\(MinPts\)</span>：邻域密度阈值 <strong>输出</strong>：基于密度的簇的集合 <strong>步骤</strong>： 1. 标记所有对象为<strong>unvisited</strong> 2. Do 3. 随机选择一个unvisited对象<span class="math inline">\(p\)</span> 4. 标记<span class="math inline">\(p\)</span>为<strong>visited</strong> 5. If <span class="math inline">\(p\)</span>的<span class="math inline">\(\epsilon\)</span>-邻域至少有<span class="math inline">\(MinPts\)</span>个对象 6. 　　创建一个新簇<span class="math inline">\(C\)</span>，并把<span class="math inline">\(p\)</span>添加到<span class="math inline">\(C\)</span> 7. 　　令<span class="math inline">\(N\)</span>为<span class="math inline">\(p\)</span>的<span class="math inline">\(\epsilon\)</span>-邻域中的对象集合 8. 　　For <span class="math inline">\(N\)</span> 中的每个点<span class="math inline">\(q\)</span> 9. 　　　　If <span class="math inline">\(q\)</span>是unvisited 10. 　　　　　　标记<span class="math inline">\(q\)</span>为visited 11. 　　　　　　If <span class="math inline">\(q\)</span>的<span class="math inline">\(\epsilon\)</span>-邻域至少有<span class="math inline">\(MinPts\)</span>个对象，把这些对象添加到<span class="math inline">\(N\)</span> 12. 　　　　　　If <span class="math inline">\(q\)</span>还不是任何簇的成员，把<span class="math inline">\(q\)</span>添加到<span class="math inline">\(C\)</span> 13.　　End for 14.　　输出<span class="math inline">\(C\)</span> 15. Else标记<span class="math inline">\(p\)</span>为噪声 16. Until没有标记为unvisited的对象</p>
-<h4 id="dbscan小结">(5)DBSCAN小结</h4>
-<p>　　　　和传统的K-Means算法相比，DBSCAN最大的不同就是不需要输入类别数k，当然它最大的优势是可以发现任意形状的聚类簇，而不是像K-Means，一般仅仅使用于凸的样本集聚类。同时它在聚类的同时还可以找出异常点，这点和BIRCH算法类似。</p>
+<p>　　　　第三种问题比较特殊，某些样本可能到两个核心对象的距离都小于ϵ，但是这两个核心对象由于不是密度直达，又不属于同一个聚类簇，那么如果界定这个样本的类别呢？一般来说，此时DBSCAN采用先来后到，先进行聚类的类别簇会标记这个样本为它的类别。也就是说DBSCAN的算法不是完全稳定的算法。</p>
+<h4 id="4-DBSCAN聚类算法"><a href="#4-DBSCAN聚类算法" class="headerlink" title="(4)DBSCAN聚类算法"></a>(4)DBSCAN聚类算法</h4><p><strong>算法表达一</strong>：<br>输入：样本集$D=(x_1,x_2,…,x_m)$，邻域参数$(\epsilon,MinPts)$，样本距离度量方式。<br>输出:簇划分$C$</p>
+<ol>
+<li>初始化核心对象集合$\Omega=\emptyset$，初始化聚类簇数$k=0$，初始化未访问的样本集合$\Gamma=D$，簇划分$C=\emptyset$</li>
+<li>对于$j=1,2,…,m$，按下面的步骤找出所有的核心对象：<br>a)通过距离度量方式，找到样本$x_j$的$\epsilon$-邻域子样本集$N_\epsilon(x_j)$<br>b)如果子样本集的样本个数满足$\vert N_\epsilon(x_j)\vert\ge MinPts$，将样本$x_j$加入核心对象样本集合：$\Omega=\Omega\cup \{x_j\}$</li>
+<li>如果核心对象集合$\Omega=\emptyset$，则算法结束，否则转入步骤4</li>
+<li>在核心对象集合$\Omega$中，随机选择一个核心对象$o$，初始化当前簇核心对象列队$\Omega_{cur}=\{o\}$，初始化类别序号$k=k+1$，初始化当前簇样本集合$C_k=\{o\}$，更新未访问样本集合$\Gamma=\Gamma-{o}$</li>
+<li>如果当前簇核心对象列队$\Omega_{cur}\ne\emptyset$,转入步骤6，否则当$\Omega_{cur}=\emptyset$，则当前聚类簇$C_k$生成完毕，更新簇划分$C=\{C_1,C_2,…,C_k\}$，更新核心对象集合$\Omega=\Omega-C_k$，转入步骤3</li>
+<li>在当前簇核心对象队列$\Omega_{cur}$中取出一个核心对象，通过邻域距离阈值$\epsilon$找出所有的$\epsilon$-邻域子样本集$N_\epsilon(o^\prime)$，令$\Delta=N_\epsilon(o^\prime)\cap\Gamma$，更新当前簇样本集合$C_k=C_k\cup \Delta$，更新未访问样本集合$\Gamma=\Gamma-\Delta$，更新$\Omega_{cur}=\Omega_{cur}\cup(\Delta\cap\Omega)-o^\prime$，转入步骤5</li>
+</ol>
+<p>输出结果为：簇划分$C=\{C_1,C_2,…,C_k\}$</p>
+<p><strong>算法表达二</strong>：<br><strong>输入</strong>：<br>$D$：一个包含$n$个对象的数据集<br>$\epsilon$：半径参数<br>$MinPts$：邻域密度阈值<br><strong>输出</strong>：基于密度的簇的集合<br><strong>步骤</strong>：</p>
+<ol>
+<li>标记所有对象为<strong>unvisited</strong></li>
+<li>Do</li>
+<li>随机选择一个unvisited对象$p$</li>
+<li>标记$p$为<strong>visited</strong></li>
+<li>If $p$的$\epsilon$-邻域至少有$MinPts$个对象</li>
+<li>　　创建一个新簇$C$，并把$p$添加到$C$</li>
+<li>　　令$N$为$p$的$\epsilon$-邻域中的对象集合</li>
+<li>　　For $N$ 中的每个点$q$</li>
+<li>　　　　If $q$是unvisited</li>
+<li>　　　　　　标记$q$为visited</li>
+<li>　　　　　　If $q$的$\epsilon$-邻域至少有$MinPts$个对象，把这些对象添加到$N$</li>
+<li>　　　　　　If $q$还不是任何簇的成员，把$q$添加到$C$<br>13.　　End for<br>14.　　输出$C$</li>
+<li>Else标记$p$为噪声</li>
+<li>Until没有标记为unvisited的对象</li>
+</ol>
+<h4 id="5-DBSCAN小结"><a href="#5-DBSCAN小结" class="headerlink" title="(5)DBSCAN小结"></a>(5)DBSCAN小结</h4><p>　　　　和传统的K-Means算法相比，DBSCAN最大的不同就是不需要输入类别数k，当然它最大的优势是可以发现任意形状的聚类簇，而不是像K-Means，一般仅仅使用于凸的样本集聚类。同时它在聚类的同时还可以找出异常点，这点和BIRCH算法类似。</p>
 <p>　　　　那么我们什么时候需要用DBSCAN来聚类呢？一般来说，如果数据集是稠密的，并且数据集不是凸的，那么用DBSCAN会比K-Means聚类效果好很多。如果数据集不是稠密的，则不推荐用DBSCAN来聚类。</p>
 <p>　　　　下面对DBSCAN算法的优缺点做一个总结。</p>
 <p>　　　　DBSCAN的主要优点有：</p>
@@ -513,7 +545,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类分析"><span class="nav-number">1.</span> <span class="nav-text">聚类分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#dbscan小结"><span class="nav-number">1.0.1.</span> <span class="nav-text">(5)DBSCAN小结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类分析"><span class="nav-number">1.</span> <span class="nav-text">聚类分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-密度聚类（DBSCAN）"><span class="nav-number">1.1.</span> <span class="nav-text">1.密度聚类（DBSCAN）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-密度聚类原理"><span class="nav-number">1.1.1.</span> <span class="nav-text">(4) 密度聚类原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-基本概念"><span class="nav-number">1.1.2.</span> <span class="nav-text">(2)基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-DBSCAN密度聚类思想"><span class="nav-number">1.1.3.</span> <span class="nav-text">(3)DBSCAN密度聚类思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-DBSCAN聚类算法"><span class="nav-number">1.1.4.</span> <span class="nav-text">(4)DBSCAN聚类算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-DBSCAN小结"><span class="nav-number">1.1.5.</span> <span class="nav-text">(5)DBSCAN小结</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
