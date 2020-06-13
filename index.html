@@ -239,6 +239,128 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/13/Hexo页面添加音乐/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sisyphus">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Ortelpa-sisyphus.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dreamlike">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/13/Hexo页面添加音乐/" itemprop="url">Hexo页面添加背景音乐</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-13T21:06:58+08:00">
+                2020-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="编辑-themes-next-layout-macro-sidebar-swig-文件"><a href="#编辑-themes-next-layout-macro-sidebar-swig-文件" class="headerlink" title="编辑 themes/next/layout/_macro/sidebar.swig 文件"></a>编辑 themes/next/layout/_macro/sidebar.swig 文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;music_player&quot;&gt;</span><br><span class="line"> &#123;% if theme.background_music %&#125;</span><br><span class="line">	  &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;&#123;&#123;theme.background_music&#125;&#125;&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen&gt;&lt;/iframe&gt;</span><br><span class="line">     &#123;% endif %&#125;</span><br><span class="line">	&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="在-themes-next-config-yml-配置文件中添加歌单地址配置"><a href="#在-themes-next-config-yml-配置文件中添加歌单地址配置" class="headerlink" title="在 themes/next/_config.yml 配置文件中添加歌单地址配置"></a>在 themes/next/_config.yml 配置文件中添加歌单地址配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># background music</span><br><span class="line">background_music: https://www.youtube.com/embed/_KesJL5EVjg</span><br></pre></td></tr></table></figure>
+<h3 id="也可以直接将”iframe”文本整个粘贴到sidebar-swig-文件中"><a href="#也可以直接将”iframe”文本整个粘贴到sidebar-swig-文件中" class="headerlink" title="也可以直接将”iframe”文本整个粘贴到sidebar.swig 文件中"></a>也可以直接将”iframe”文本整个粘贴到sidebar.swig 文件中</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;music_player&quot;&gt;</span><br><span class="line"> &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/_KesJL5EVjg&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen&gt;&lt;/iframe&gt;</span><br><span class="line">	&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/Gams-结果输出解读/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -345,8 +467,100 @@
 <h2 id="1-1-输入文件的打印"><a href="#1-1-输入文件的打印" class="headerlink" title="1.1 输入文件的打印"></a>1.1 输入文件的打印</h2><p>基本就是把输入的模型文本重新打印一遍。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">A Quadratic Programming Model for Portfolio Analysis (ALAN,SEQ=124a)</span><br><span class="line">C o m p i l a t i o n</span><br><span class="line"></span><br><span class="line">   2</span><br><span class="line">   4</span><br><span class="line">      This is a mini mean-variance portfolio selection problem described in</span><br><span class="line">      &apos;GAMS/MINOS:Three examples&apos; by Alan S. Manne, Department of Operations</span><br><span class="line">       Research, Stanford University, May 1986.</span><br><span class="line">  10</span><br><span class="line">  11  * This model has been modified for use in the documentation</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">12</span><br><span class="line"> 13  Set i  securities   /hardware, software, show-biz, t-bills/;</span><br><span class="line"> 14  alias (i,j);</span><br><span class="line"> 15</span><br><span class="line"> 16  Scalar target     target mean annual return on portfolio % /10/,</span><br><span class="line"> 17         lowyield   yield of lowest yielding security,</span><br><span class="line"> 18         highrisk   variance of highest security risk ;</span><br><span class="line"> 19</span><br><span class="line"> 20  Parameters  mean(i)  mean annual returns on individual securities (%)</span><br><span class="line"> 21        / hardware   8</span><br><span class="line"> 22          software   9</span><br><span class="line"> 23          show-biz  12</span><br><span class="line"> 24          t-bills    7 / ;</span><br><span class="line"> 25</span><br><span class="line"> 26  Table v(i,j)  variance-covariance array (%-squared annual return)</span><br><span class="line"> 27                    hardware  software  show-biz  t-bills</span><br><span class="line"> 28         hardware      4         3         -1        0</span><br><span class="line"> 29         software      3         6          1        0</span><br><span class="line"> 30         show-biz     -1         1         10        0</span><br><span class="line"> 31         t-bills       0         0          0        0 ;</span><br><span class="line"> 32</span><br><span class="line"> 33  lowyield = smin(i, mean(i)) ;</span><br><span class="line"> 34  highrisk = smax(i, v(i,i)) ;</span><br><span class="line"> 35  display lowyield, highrisk ;</span><br><span class="line"> 36</span><br><span class="line"> 37  Variables  x(i)       fraction of portfolio invested in asset i</span><br><span class="line"> 38             variance   variance of portfolio ;</span><br><span class="line"> 39  Positive Variable x ;</span><br><span class="line"> 40</span><br><span class="line"> 41  Equations  fsum    fractions must add to 1.0</span><br><span class="line"> 42             dmean   definition of mean return on portfolio</span><br><span class="line"> 43             dvar    definition of variance;</span><br><span class="line"> 44</span><br><span class="line"> 45  fsum..     sum(i, x(i))                     =e=  1.0;</span><br><span class="line"> 46  dmean..    sum(i, mean(i)*x(i))             =e=  target;</span><br><span class="line"> 47  dvar..     sum(i, x(i)*sum(j,v(i,j)*x(j)))  =e=  variance;</span><br><span class="line"> 48</span><br><span class="line"> 49  Model portfolio  / fsum, dmean, dvar / ;</span><br><span class="line"> 50  Solve portfolio using nlp minimizing variance;</span><br><span class="line"> 51  display x.l, variance.l;</span><br></pre></td></tr></table></figure>
 <h2 id="1-2-符号引用图"><a href="#1-2-符号引用图" class="headerlink" title="1.2 符号引用图"></a>1.2 符号引用图</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Symbol Listing</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SYMBOL      TYPE   REFERENCES</span><br><span class="line"></span><br><span class="line">dmean        EQU   declared       42  defined       46 impl-asn       50      ref       49</span><br><span class="line">dvar         EQU   declared       43  defined       47 impl-asn       50      ref       49</span><br><span class="line">fsum         EQU   declared       41  defined       45 impl-asn       50      ref       49</span><br><span class="line">highrisk     PARAM declared       18 assigned       34      ref       35</span><br><span class="line">i            SET   declared       13  defined       13      ref       14       20       26       33     2*34</span><br><span class="line">37     45     2*46     2*47  control       33       34       45       46       47</span><br><span class="line">j            SET   declared       14      ref       26     2*47  control       47</span><br><span class="line">lowyield     PARAM declared       17 assigned       33      ref       35</span><br><span class="line">mean         PARAM declared       20  defined       21      ref       33       46</span><br><span class="line">portfolio    MODEL declared       49  defined       49 impl-asn       50      ref       50</span><br><span class="line">target       PARAM declared       16  defined       16      ref       46</span><br><span class="line">v            PARAM declared       26  defined       26      ref       34       47</span><br><span class="line">variance     VAR   declared       38 impl-asn       50      ref       47       50       51</span><br><span class="line">x            VAR   declared       37 impl-asn       50      ref       39       45       46     2*47       51</span><br></pre></td></tr></table></figure>
-<p>头两列给出了符号的名字和类型。数据类型和简写如下:<br>| Shorthand Symbol  |  GAMS Data Type |<br>|-|-|<br>|ACRNM    | acronym|<br>|EQU|    equation|<br>|FILE|    put file|<br>|MODEL    |model|<br>|PARAM|    parameter|<br>|SET    |set|<br>|VAR    |variable|<br>后面几列会给出符号在第几行声明(declared)，在第几行隐式的制定，第几行被引用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">declared       37</span><br><span class="line">impl-asn       50</span><br><span class="line">ref            39       45       46     2*47       51</span><br></pre></td></tr></table></figure></p>
-<p>完整的引用类型列表和对应的简写如下：<br>|Shorthand Symbol|Reference Type|Description|<br>|-|-|-|-|<br>|declared|    Declaration|    The identifier is declared as to type. This must be the first appearance of the identifier.|<br>|defined|    Definition|    An initialization (for a table or a data list between slashes) or symbolic definition (for an equation) starts for the identifier.|<br>|assigned|    Assignment|    Values are replaced because the identifier appears on the left-hand side of an assignment statement.|<br>|impl-asn    |Implicit Assignment|    An equation or variable will be updated as a result of being referred to implicitly in a solve statement.|<br>|control    |Control|    A set is used as (part of) the driving index in an assignment, equation, loop or indexed operation.|<br>|ref|    Reference|    The symbol has been referenced on the right-hand side of an assignment or in a display, equation, model, solve statement or put statetement.|<br>|index|    Index    |Like control, but used only for set labels. Appears only in the cross reference map of unique elements. See section The Unique Element Listing Map for details.|</p>
+<p>头两列给出了符号的名字和类型。数据类型和简写如下:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Shorthand Symbol</th>
+<th>GAMS Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACRNM</td>
+<td>acronym</td>
+</tr>
+<tr>
+<td>EQU</td>
+<td>equation</td>
+</tr>
+<tr>
+<td>FILE</td>
+<td>put file</td>
+</tr>
+<tr>
+<td>MODEL</td>
+<td>model</td>
+</tr>
+<tr>
+<td>PARAM</td>
+<td>parameter</td>
+</tr>
+<tr>
+<td>SET</td>
+<td>set</td>
+</tr>
+<tr>
+<td>VAR</td>
+<td>variable</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>后面几列会给出符号在第几行声明(declared)，在第几行隐式的制定，第几行被引用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">declared       37</span><br><span class="line">impl-asn       50</span><br><span class="line">ref            39       45       46     2*47       51</span><br></pre></td></tr></table></figure></p>
+<p>完整的引用类型列表和对应的简写如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Shorthand Symbol</th>
+<th>Reference Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>declared</td>
+<td>Declaration</td>
+<td>The identifier is declared as to type. This must be the first appearance of the identifier.</td>
+</tr>
+<tr>
+<td>defined</td>
+<td>Definition</td>
+<td>An initialization (for a table or a data list between slashes) or symbolic definition (for an equation) starts for the identifier.</td>
+</tr>
+<tr>
+<td>assigned</td>
+<td>Assignment</td>
+<td>Values are replaced because the identifier appears on the left-hand side of an assignment statement.</td>
+</tr>
+<tr>
+<td>impl-asn</td>
+<td>Implicit Assignment</td>
+<td>An equation or variable will be updated as a result of being referred to implicitly in a solve statement.</td>
+</tr>
+<tr>
+<td>control</td>
+<td>Control</td>
+<td>A set is used as (part of) the driving index in an assignment, equation, loop or indexed operation.</td>
+</tr>
+<tr>
+<td>ref</td>
+<td>Reference</td>
+<td>The symbol has been referenced on the right-hand side of an assignment or in a display, equation, model, solve statement or put statetement.</td>
+</tr>
+<tr>
+<td>index</td>
+<td>Index</td>
+<td>Like control, but used only for set labels. Appears only in the cross reference map of unique elements. See section The Unique Element Listing Map for details.</td>
+</tr>
+</tbody>
+</table>
+</div>
 
           
         
@@ -651,125 +865,6 @@
             <h2 id="绝对："><a href="#绝对：" class="headerlink" title="绝对："></a>绝对：</h2><p>就是普适的，就是没有区别的区别，没有区别就意味仅仅是形式的，而不具备内容的。因为加入涉及到内容，就不是没有区别的区别，就是区别。</p>
 <h2 id="一般"><a href="#一般" class="headerlink" title="一般"></a>一般</h2><p>一般的就是并不仅仅属于某个人，是一种普遍性。</p>
 
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/sss/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sisyphus">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/Ortelpa-sisyphus.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dreamlike">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/27/sss/" itemprop="url">sss</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-27T10:31:09+08:00">
-                2018-12-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
           
         
       
@@ -1862,6 +1957,15 @@ s.t.　&Ax=b,　　　　　　　　　　　　　　(P_2)\\
             
 
             
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
 
           </nav>
 
@@ -1887,9 +1991,16 @@ s.t.　&Ax=b,　　　　　　　　　　　　　　(P_2)\\
     </div>
 	
 	
-	<div id="music126player">
-	  <iframe width="560" height="315" src="https://www.youtube.com/embed/Dm00x9ttBA8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<div id="music_player">
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/_KesJL5EVjg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</div>
+	
+	<!-- <div id="music_player"> -->
+ <!--  -->
+	  <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/_KesJL5EVjg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+     <!--  -->
+	<!-- </div> -->
+	
 	
   </aside>
 
