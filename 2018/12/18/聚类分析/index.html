@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="聚类分析 聚类分析是非监督学习的很重要的领域。所谓非监督学习，就是数据是没有类别标记的，算法要从对原始数据的探索中提取出一定的规律。而聚类分析就是试图将数据集中的样本划分为若干个不相交的子集，每个子集称为一个“簇”。下面是sklearn中对各种聚类算法的比较。 ### 1.密度聚类（DBSCAN） 密度聚类的思想是不同于KMeans的，但是更符合我们人类的思维，基本的思想是通过是否紧密相连来判断">
+<meta property="og:type" content="article">
+<meta property="og:title" content="聚类分析">
+<meta property="og:url" content="http://yoursite.com/2018/12/18/聚类分析/index.html">
+<meta property="og:site_name" content="Dreamlike">
+<meta property="og:description" content="聚类分析 聚类分析是非监督学习的很重要的领域。所谓非监督学习，就是数据是没有类别标记的，算法要从对原始数据的探索中提取出一定的规律。而聚类分析就是试图将数据集中的样本划分为若干个不相交的子集，每个子集称为一个“簇”。下面是sklearn中对各种聚类算法的比较。 ### 1.密度聚类（DBSCAN） 密度聚类的思想是不同于KMeans的，但是更符合我们人类的思维，基本的思想是通过是否紧密相连来判断">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/.com//f1.jpg">
+<meta property="og:updated_time" content="2018-12-18T09:02:38.089Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="聚类分析">
+<meta name="twitter:description" content="聚类分析 聚类分析是非监督学习的很重要的领域。所谓非监督学习，就是数据是没有类别标记的，算法要从对原始数据的探索中提取出一定的规律。而聚类分析就是试图将数据集中的样本划分为若干个不相交的子集，每个子集称为一个“簇”。下面是sklearn中对各种聚类算法的比较。 ### 1.密度聚类（DBSCAN） 密度聚类的思想是不同于KMeans的，但是更符合我们人类的思维，基本的思想是通过是否紧密相连来判断">
+<meta name="twitter:image" content="http://yoursite.com/.com//f1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/18/聚类分析/">
+
+
+
+
+
+  <title>聚类分析 | Dreamlike</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dreamlike</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/18/聚类分析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sisyphus">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Ortelpa-sisyphus.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dreamlike">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">聚类分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-18T13:43:02+08:00">
+                2018-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Study/" itemprop="url" rel="index">
+                    <span itemprop="name">Study</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="聚类分析">聚类分析</h2>
+<p>聚类分析是<strong>非监督学习</strong>的很重要的领域。所谓<strong>非监督学习</strong>，就是数据是没有<strong>类别</strong>标记的，算法要从对原始数据的探索中提取出一定的规律。而聚类分析就是试图将数据集中的样本划分为若干个不相交的子集，每个子集称为一个“<strong>簇</strong>”。下面是sklearn中对各种聚类算法的比较。 ### 1.密度聚类（DBSCAN） 密度聚类的思想是不同于KMeans的，但是更符合我们人类的思维，基本的思想是通过是否紧密相连来判断样本点是否属于一个簇。代表性的算法就是DBSCAN (Density-Based Spatial Clustering of Applications with Noise，具有噪声的基于密度的聚类方法),K-Means，BIRCH这些一般只适用于凸样本集的聚类相比，DBSCAN既可以适用于凸样本集，也可以适用于非凸样本集。它基于一组邻域参数<span class="math inline">\((\epsilon,MinPts)\)</span>来表征某处样本是否是紧密的。在介绍算法之前先介绍一些概念。 #### (4) 密度聚类原理 DBSCAN是一种基于密度的聚类算法，这类密度聚类算法一般假定类别可以通过样本分布的紧密程度决定。同一类别的样本，他们之间的紧密相连的，也就是说，在该类别任意样本周围不远处一定有同类别的样本存在。</p>
+<p>通过将紧密相连的样本划为一类，这样就得到了一个聚类类别。通过将所有各组紧密相连的样本划为各个不同的类别，则我们就得到了最终的所有聚类类别结果。 #### (2)基本概念 * <span class="math inline">\(\epsilon\)</span><strong>-邻域</strong>： 即对于样本点<span class="math inline">\(x_i\)</span>,与它的距离在<span class="math inline">\(\epsilon\)</span>之内的属于样本集<span class="math inline">\(D\)</span>中的点的集合，即<span class="math inline">\(N_\epsilon(x_j)=\{x_i \in D\vert dist(x_i,x_j)\leq\epsilon\}\)</span> * <strong>核心对象</strong>： 若<span class="math inline">\(x_i\)</span>的<span class="math inline">\(\epsilon\)</span>-邻域至少包含<span class="math inline">\(MinPts\)</span>个样本，即<span class="math inline">\(\vert N_\epsilon(x_j)\ge MinPts\vert\)</span>，那么<span class="math inline">\(x_j\)</span>是一个核心对象。也即是说在核心对象周围的点相对于邻域参数来说是致密的。 * <strong>密度直达</strong>：如果<span class="math inline">\(x_i\)</span>位于核心对象<span class="math inline">\(x_j\)</span>的<span class="math inline">\(\epsilon\)</span>-邻域中，则称<span class="math inline">\(x_i\)</span>由<span class="math inline">\(x_j\)</span>出发是密度直达的。 * <strong>密度可达</strong>：如果存在一个样本序列<span class="math inline">\(p_1,p_2,...,p_n\)</span>,样本皆为核心对象，<span class="math inline">\(x_i\)</span>由<span class="math inline">\(p_1\)</span>密度直达，<span class="math inline">\(x_j\)</span>由<span class="math inline">\(p_n\)</span>密度直达，且<span class="math inline">\(p_(k+1)\)</span>由<span class="math inline">\(p_k\)</span>密度直达，则称<span class="math inline">\(x_i\)</span>由<span class="math inline">\(x_j\)</span>出发是密度可达的。也即是说密度可达满足传递性，但不满足对称性，这个可由密度直达的不对称性得出。 * <strong>密度相连</strong>：对于<span class="math inline">\(x_i\)</span>和<span class="math inline">\(x_j\)</span>如果存在核心对象<span class="math inline">\(x_k\)</span>，使<span class="math inline">\(x_i\)</span>和<span class="math inline">\(x_j\)</span>均由<span class="math inline">\(x_k\)</span>密度可达，则称<span class="math inline">\(x_i\)</span>和<span class="math inline">\(x_j\)</span>密度相连。注意密度相连关系是满足对称性的。 <img src="/.com//f1.jpg"> 上图为“密度直达”和“密度可达”概念示意描述。根据前文基本概念的描述知道：由于有标记的各点­M、P、O和R的Eps近邻均包含3个以上的点，因此它们都是核对象；M­是从P“密度直达”；而Q则是从­M“密度直达”；基于上述结果，Q是从P“密度可达”；但P从Q无法“密度可达”(非对称)。类似地，S和R从O是“密度可达”的；O、R和S均是“密度相连”（对称）的。 #### (3)DBSCAN密度聚类思想 　　　　DBSCAN的聚类定义很简单：由密度可达关系导出的最大密度相连的样本集合，即为我们最终聚类的一个类别，或者说一个簇。</p>
+<p>　　　　这个DBSCAN的簇里面可以有一个或者多个核心对象。如果只有一个核心对象，则簇里其他的非核心对象样本都在这个核心对象的ϵ-邻域里；如果有多个核心对象，则簇里的任意一个核心对象的ϵ-邻域中一定有一个其他的核心对象，否则这两个核心对象无法密度可达。这些核心对象的ϵ-邻域里所有的样本的集合组成的一个DBSCAN聚类簇。</p>
+<p>　　　　那么怎么才能找到这样的簇样本集合呢？DBSCAN使用的方法很简单，它任意选择一个没有类别的核心对象作为种子，然后找到所有这个核心对象能够密度可达的样本集合，即为一个聚类簇。接着继续选择另一个没有类别的核心对象去寻找密度可达的样本集合，这样就得到另一个聚类簇。一直运行到所有核心对象都有类别为止。</p>
+<p>　　　　基本上这就是DBSCAN算法的主要内容了，是不是很简单？但是我们还是有三个问题没有考虑。</p>
+<p>　　　　第一个是一些异常样本点或者说少量游离于簇外的样本点，这些点不在任何一个核心对象在周围，在DBSCAN中，我们一般将这些样本点标记为噪音点。</p>
+<p>　　　　第二个是距离的度量问题，即如何计算某样本和核心对象样本的距离。在DBSCAN中，一般采用最近邻思想，采用某一种距离度量来衡量样本距离，比如欧式距离。这和KNN分类算法的最近邻思想完全相同。对应少量的样本，寻找最近邻可以直接去计算所有样本的距离，如果样本量较大，则一般采用KD树或者球树来快速的搜索最近邻。如果大家对于最近邻的思想，距离度量，KD树和球树不熟悉，建议参考之前写的另一篇文章K近邻法(KNN)原理小结。</p>
+<p>　　　　第三种问题比较特殊，某些样本可能到两个核心对象的距离都小于ϵ，但是这两个核心对象由于不是密度直达，又不属于同一个聚类簇，那么如果界定这个样本的类别呢？一般来说，此时DBSCAN采用先来后到，先进行聚类的类别簇会标记这个样本为它的类别。也就是说DBSCAN的算法不是完全稳定的算法。 #### (4)DBSCAN聚类算法 <strong>算法表达一</strong>： 输入：样本集<span class="math inline">\(D=(x_1,x_2,...,x_m)\)</span>，邻域参数<span class="math inline">\((\epsilon,MinPts)\)</span>，样本距离度量方式。 输出:簇划分<span class="math inline">\(C\)</span> 1. 初始化核心对象集合<span class="math inline">\(\Omega=\emptyset\)</span>，初始化聚类簇数<span class="math inline">\(k=0\)</span>，初始化未访问的样本集合<span class="math inline">\(\Gamma=D\)</span>，簇划分<span class="math inline">\(C=\emptyset\)</span> 2. 对于<span class="math inline">\(j=1,2,...,m\)</span>，按下面的步骤找出所有的核心对象： a)通过距离度量方式，找到样本<span class="math inline">\(x_j\)</span>的<span class="math inline">\(\epsilon\)</span>-邻域子样本集<span class="math inline">\(N_\epsilon(x_j)\)</span> b)如果子样本集的样本个数满足<span class="math inline">\(\vert N_\epsilon(x_j)\vert\ge MinPts\)</span>，将样本<span class="math inline">\(x_j\)</span>加入核心对象样本集合：<span class="math inline">\(\Omega=\Omega\cup \{x_j\}\)</span> 3. 如果核心对象集合<span class="math inline">\(\Omega=\emptyset\)</span>，则算法结束，否则转入步骤4 4. 在核心对象集合<span class="math inline">\(\Omega\)</span>中，随机选择一个核心对象<span class="math inline">\(o\)</span>，初始化当前簇核心对象列队<span class="math inline">\(\Omega_{cur}=\{o\}\)</span>，初始化类别序号<span class="math inline">\(k=k+1\)</span>，初始化当前簇样本集合<span class="math inline">\(C_k=\{o\}\)</span>，更新未访问样本集合<span class="math inline">\(\Gamma=\Gamma-{o}\)</span> 5. 如果当前簇核心对象列队<span class="math inline">\(\Omega_{cur}\ne\emptyset\)</span>,转入步骤6，否则当<span class="math inline">\(\Omega_{cur}=\emptyset\)</span>，则当前聚类簇<span class="math inline">\(C_k\)</span>生成完毕，更新簇划分<span class="math inline">\(C=\{C_1,C_2,...,C_k\}\)</span>，更新核心对象集合<span class="math inline">\(\Omega=\Omega-C_k\)</span>，转入步骤3 5. 在当前簇核心对象队列<span class="math inline">\(\Omega_{cur}\)</span>中取出一个核心对象，通过邻域距离阈值<span class="math inline">\(\epsilon\)</span>找出所有的<span class="math inline">\(\epsilon\)</span>-邻域子样本集<span class="math inline">\(N_\epsilon(o^\prime)\)</span>，令<span class="math inline">\(\Delta=N_\epsilon(o^\prime)\cap\Gamma\)</span>，更新当前簇样本集合<span class="math inline">\(C_k=C_k\cup \Delta\)</span>，更新未访问样本集合<span class="math inline">\(\Gamma=\Gamma-\Delta\)</span>，更新<span class="math inline">\(\Omega_{cur}=\Omega_{cur}\cup(\Delta\cap\Omega)-o^\prime\)</span>，转入步骤5</p>
+<p>输出结果为：簇划分<span class="math inline">\(C=\{C_1,C_2,...,C_k\}\)</span></p>
+<p><strong>算法表达二</strong>： <strong>输入</strong>： <span class="math inline">\(D\)</span>：一个包含<span class="math inline">\(n\)</span>个对象的数据集 <span class="math inline">\(\epsilon\)</span>：半径参数 <span class="math inline">\(MinPts\)</span>：邻域密度阈值 <strong>输出</strong>：基于密度的簇的集合 <strong>步骤</strong>： 1. 标记所有对象为<strong>unvisited</strong> 2. Do 3. 随机选择一个unvisited对象<span class="math inline">\(p\)</span> 4. 标记<span class="math inline">\(p\)</span>为<strong>visited</strong> 5. If <span class="math inline">\(p\)</span>的<span class="math inline">\(\epsilon\)</span>-邻域至少有<span class="math inline">\(MinPts\)</span>个对象 6. 　　创建一个新簇<span class="math inline">\(C\)</span>，并把<span class="math inline">\(p\)</span>添加到<span class="math inline">\(C\)</span> 7. 　　令<span class="math inline">\(N\)</span>为<span class="math inline">\(p\)</span>的<span class="math inline">\(\epsilon\)</span>-邻域中的对象集合 8. 　　For <span class="math inline">\(N\)</span> 中的每个点<span class="math inline">\(q\)</span> 9. 　　　　If <span class="math inline">\(q\)</span>是unvisited 10. 　　　　　　标记<span class="math inline">\(q\)</span>为visited 11. 　　　　　　If <span class="math inline">\(q\)</span>的<span class="math inline">\(\epsilon\)</span>-邻域至少有<span class="math inline">\(MinPts\)</span>个对象，把这些对象添加到<span class="math inline">\(N\)</span> 12. 　　　　　　If <span class="math inline">\(q\)</span>还不是任何簇的成员，把<span class="math inline">\(q\)</span>添加到<span class="math inline">\(C\)</span> 13.　　End for 14.　　输出<span class="math inline">\(C\)</span> 15. Else标记<span class="math inline">\(p\)</span>为噪声 16. Until没有标记为unvisited的对象</p>
+<h4 id="dbscan小结">(5)DBSCAN小结</h4>
+<p>　　　　和传统的K-Means算法相比，DBSCAN最大的不同就是不需要输入类别数k，当然它最大的优势是可以发现任意形状的聚类簇，而不是像K-Means，一般仅仅使用于凸的样本集聚类。同时它在聚类的同时还可以找出异常点，这点和BIRCH算法类似。</p>
+<p>　　　　那么我们什么时候需要用DBSCAN来聚类呢？一般来说，如果数据集是稠密的，并且数据集不是凸的，那么用DBSCAN会比K-Means聚类效果好很多。如果数据集不是稠密的，则不推荐用DBSCAN来聚类。</p>
+<p>　　　　下面对DBSCAN算法的优缺点做一个总结。</p>
+<p>　　　　DBSCAN的主要优点有：</p>
+<p>　　　　1） 可以对任意形状的稠密数据集进行聚类，相对的，K-Means之类的聚类算法一般只适用于凸数据集。</p>
+<p>　　　　2） 可以在聚类的同时发现异常点，对数据集中的异常点不敏感。</p>
+<p>　　　　3） 聚类结果没有偏倚，相对的，K-Means之类的聚类算法初始值对聚类结果有很大影响。</p>
+<p>　　　　DBSCAN的主要缺点有：</p>
+<p>　　　　1）如果样本集的密度不均匀、聚类间距差相差很大时，聚类质量较差，这时用DBSCAN聚类一般不适合。</p>
+<p>　　　　2） 如果样本集较大时，聚类收敛时间较长，此时可以对搜索最近邻时建立的KD树或者球树进行规模限制来改进。</p>
+<p>　　　　3） 调参相对于传统的K-Means之类的聚类算法稍复杂，主要需要对距离阈值ϵ，邻域样本数阈值MinPts联合调参，不同的参数组合对最后的聚类效果有较大影响。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/14/利用百度地图得到行政区域轮廓线/" rel="next" title="利用百度地图得到行政区域轮廓线">
+                <i class="fa fa-chevron-left"></i> 利用百度地图得到行政区域轮廓线
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/21/Electron初探/" rel="prev" title="Electron初探">
+                Electron初探 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/Ortelpa-sisyphus.jpg" alt="Sisyphus">
+            
+              <p class="site-author-name" itemprop="name">Sisyphus</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类分析"><span class="nav-number">1.</span> <span class="nav-text">聚类分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#dbscan小结"><span class="nav-number">1.0.1.</span> <span class="nav-text">(5)DBSCAN小结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	
+	<div id="music_player">
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/_KesJL5EVjg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</div>
+	
+	<!-- <div id="music_player"> -->
+ <!--  -->
+	  <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/_KesJL5EVjg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+     <!--  -->
+	<!-- </div> -->
+	
+	
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sisyphus</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>

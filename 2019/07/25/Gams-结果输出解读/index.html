@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介 GMAS的输出包含以下几部分： 1. 编译结果 编译结果包含输入文件的打印，可能的错误提示以及GMAS对象和交叉引用图列表。 2. 执行结果 执行结果包含展示声明的结果和可能的执行错误提示。 3. 模型生成 该结果在模型生成过程给出，包含等式和变量列表以及模型统计和可可能的生成执行时的错误提示。 4. 解 外部求解器程序处理模型时生成的解报告包括:求解总结，求解器的报告，解列表以及报告总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gams 结果输出解读">
+<meta property="og:url" content="http://yoursite.com/2019/07/25/Gams-结果输出解读/index.html">
+<meta property="og:site_name" content="Dreamlike">
+<meta property="og:description" content="简介 GMAS的输出包含以下几部分： 1. 编译结果 编译结果包含输入文件的打印，可能的错误提示以及GMAS对象和交叉引用图列表。 2. 执行结果 执行结果包含展示声明的结果和可能的执行错误提示。 3. 模型生成 该结果在模型生成过程给出，包含等式和变量列表以及模型统计和可可能的生成执行时的错误提示。 4. 解 外部求解器程序处理模型时生成的解报告包括:求解总结，求解器的报告，解列表以及报告总结">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-06-13T13:29:03.115Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gams 结果输出解读">
+<meta name="twitter:description" content="简介 GMAS的输出包含以下几部分： 1. 编译结果 编译结果包含输入文件的打印，可能的错误提示以及GMAS对象和交叉引用图列表。 2. 执行结果 执行结果包含展示声明的结果和可能的执行错误提示。 3. 模型生成 该结果在模型生成过程给出，包含等式和变量列表以及模型统计和可可能的生成执行时的错误提示。 4. 解 外部求解器程序处理模型时生成的解报告包括:求解总结，求解器的报告，解列表以及报告总结">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/25/Gams-结果输出解读/">
+
+
+
+
+
+  <title>Gams 结果输出解读 | Dreamlike</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dreamlike</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/Gams-结果输出解读/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sisyphus">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Ortelpa-sisyphus.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dreamlike">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Gams 结果输出解读</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T14:03:15+08:00">
+                2019-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Gams/" itemprop="url" rel="index">
+                    <span itemprop="name">Gams</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简介">简介</h1>
+<p>GMAS的输出包含以下几部分： 1. 编译结果 编译结果包含输入文件的打印，可能的错误提示以及GMAS对象和交叉引用图列表。 2. 执行结果 执行结果包含展示声明的结果和可能的执行错误提示。 3. 模型生成 该结果在模型生成过程给出，包含等式和变量列表以及模型统计和可可能的生成执行时的错误提示。 4. 解 外部求解器程序处理模型时生成的解报告包括:求解总结，求解器的报告，解列表以及报告总结。 5. 解后输出 输出的最后部分包括最终执行总结和文件总结。</p>
+<h1 id="模型示例">模型示例</h1>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">$Title A Quadratic Programming Model for Portfolio Analysis (ALAN,SEQ=124a)</span><br><span class="line"></span><br><span class="line">$onsymlist onsymxref onuellist onuelxref</span><br><span class="line"></span><br><span class="line">$Ontext</span><br><span class="line">This is a mini mean-variance portfolio selection problem described in</span><br><span class="line">&apos;GAMS/MINOS:Three examples&apos; by Alan S. Manne, Department of Operations</span><br><span class="line"> Research, Stanford University, May 1986.</span><br><span class="line">$Offtext</span><br><span class="line"></span><br><span class="line">* This model has been modified for use in the documentation</span><br><span class="line"></span><br><span class="line">Set i  securities   /hardware, software, show-biz, t-bills/;</span><br><span class="line">alias (i,j);</span><br><span class="line"></span><br><span class="line">Scalar target     target mean annual return on portfolio % /10/,</span><br><span class="line">       lowyield   yield of lowest yielding security,</span><br><span class="line">       highrisk   variance of highest security risk ;</span><br><span class="line"></span><br><span class="line">Parameters  mean(i)  mean annual returns on individual securities (%)</span><br><span class="line">      / hardware   8</span><br><span class="line">        software   9</span><br><span class="line">        show-biz  12</span><br><span class="line">        t-bills    7 /</span><br><span class="line"></span><br><span class="line">Table v(i,j)  variance-covariance array (%-squared annual return)</span><br><span class="line">                  hardware  software  show-biz  t-bills</span><br><span class="line">       hardware      4         3         -1        0</span><br><span class="line">       software      3         6          1        0</span><br><span class="line">       show-biz     -1         1         10        0</span><br><span class="line">       t-bills       0         0          0        0 ;</span><br><span class="line"></span><br><span class="line">lowyield = smin(i, mean(i)) ;</span><br><span class="line">highrisk = smax(i, v(i,i)) ;</span><br><span class="line">display lowyield, highrisk ;</span><br><span class="line"></span><br><span class="line">Variables  x(i)       fraction of portfolio invested in asset i</span><br><span class="line">           variance   variance of portfolio</span><br><span class="line">Positive Variable x;</span><br><span class="line"></span><br><span class="line">Equations  fsum    fractions must add to 1.0</span><br><span class="line">           dmean   definition of mean return on portfolio</span><br><span class="line">           dvar    definition of variance;</span><br><span class="line"></span><br><span class="line">fsum..     sum(i, x(i))                     =e=  1.0;</span><br><span class="line">dmean..    sum(i, mean(i)*x(i))             =e=  target;</span><br><span class="line">dvar..     sum(i, x(i)*sum(j,v(i,j)*x(j)))  =e=  variance;</span><br><span class="line"></span><br><span class="line">Model portfolio  / fsum, dmean, dvar / ;</span><br><span class="line">Solve portfolio using nlp minimizing variance;</span><br><span class="line">display x.l, variance.l;</span><br></pre></td></tr></table></figure>
+<h1 id="编译输出">1.编译输出</h1>
+<p>该结果在程序初始检查时生成。包括：输入文件的打印，符号引用图，符号清单图，特殊元素清单图和包含的文件总结。 ## 1.1 输入文件的打印 基本就是把输入的模型文本重新打印一遍。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">A Quadratic Programming Model for Portfolio Analysis (ALAN,SEQ=124a)</span><br><span class="line">C o m p i l a t i o n</span><br><span class="line"></span><br><span class="line">   2</span><br><span class="line">   4</span><br><span class="line">      This is a mini mean-variance portfolio selection problem described in</span><br><span class="line">      &apos;GAMS/MINOS:Three examples&apos; by Alan S. Manne, Department of Operations</span><br><span class="line">       Research, Stanford University, May 1986.</span><br><span class="line">  10</span><br><span class="line">  11  * This model has been modified for use in the documentation</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">12</span><br><span class="line"> 13  Set i  securities   /hardware, software, show-biz, t-bills/;</span><br><span class="line"> 14  alias (i,j);</span><br><span class="line"> 15</span><br><span class="line"> 16  Scalar target     target mean annual return on portfolio % /10/,</span><br><span class="line"> 17         lowyield   yield of lowest yielding security,</span><br><span class="line"> 18         highrisk   variance of highest security risk ;</span><br><span class="line"> 19</span><br><span class="line"> 20  Parameters  mean(i)  mean annual returns on individual securities (%)</span><br><span class="line"> 21        / hardware   8</span><br><span class="line"> 22          software   9</span><br><span class="line"> 23          show-biz  12</span><br><span class="line"> 24          t-bills    7 / ;</span><br><span class="line"> 25</span><br><span class="line"> 26  Table v(i,j)  variance-covariance array (%-squared annual return)</span><br><span class="line"> 27                    hardware  software  show-biz  t-bills</span><br><span class="line"> 28         hardware      4         3         -1        0</span><br><span class="line"> 29         software      3         6          1        0</span><br><span class="line"> 30         show-biz     -1         1         10        0</span><br><span class="line"> 31         t-bills       0         0          0        0 ;</span><br><span class="line"> 32</span><br><span class="line"> 33  lowyield = smin(i, mean(i)) ;</span><br><span class="line"> 34  highrisk = smax(i, v(i,i)) ;</span><br><span class="line"> 35  display lowyield, highrisk ;</span><br><span class="line"> 36</span><br><span class="line"> 37  Variables  x(i)       fraction of portfolio invested in asset i</span><br><span class="line"> 38             variance   variance of portfolio ;</span><br><span class="line"> 39  Positive Variable x ;</span><br><span class="line"> 40</span><br><span class="line"> 41  Equations  fsum    fractions must add to 1.0</span><br><span class="line"> 42             dmean   definition of mean return on portfolio</span><br><span class="line"> 43             dvar    definition of variance;</span><br><span class="line"> 44</span><br><span class="line"> 45  fsum..     sum(i, x(i))                     =e=  1.0;</span><br><span class="line"> 46  dmean..    sum(i, mean(i)*x(i))             =e=  target;</span><br><span class="line"> 47  dvar..     sum(i, x(i)*sum(j,v(i,j)*x(j)))  =e=  variance;</span><br><span class="line"> 48</span><br><span class="line"> 49  Model portfolio  / fsum, dmean, dvar / ;</span><br><span class="line"> 50  Solve portfolio using nlp minimizing variance;</span><br><span class="line"> 51  display x.l, variance.l;</span><br></pre></td></tr></table></figure>
+<h2 id="符号引用图">1.2 符号引用图</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Symbol Listing</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SYMBOL      TYPE   REFERENCES</span><br><span class="line"></span><br><span class="line">dmean        EQU   declared       42  defined       46 impl-asn       50      ref       49</span><br><span class="line">dvar         EQU   declared       43  defined       47 impl-asn       50      ref       49</span><br><span class="line">fsum         EQU   declared       41  defined       45 impl-asn       50      ref       49</span><br><span class="line">highrisk     PARAM declared       18 assigned       34      ref       35</span><br><span class="line">i            SET   declared       13  defined       13      ref       14       20       26       33     2*34</span><br><span class="line">37     45     2*46     2*47  control       33       34       45       46       47</span><br><span class="line">j            SET   declared       14      ref       26     2*47  control       47</span><br><span class="line">lowyield     PARAM declared       17 assigned       33      ref       35</span><br><span class="line">mean         PARAM declared       20  defined       21      ref       33       46</span><br><span class="line">portfolio    MODEL declared       49  defined       49 impl-asn       50      ref       50</span><br><span class="line">target       PARAM declared       16  defined       16      ref       46</span><br><span class="line">v            PARAM declared       26  defined       26      ref       34       47</span><br><span class="line">variance     VAR   declared       38 impl-asn       50      ref       47       50       51</span><br><span class="line">x            VAR   declared       37 impl-asn       50      ref       39       45       46     2*47       51</span><br></pre></td></tr></table></figure>
+<p>头两列给出了符号的名字和类型。数据类型和简写如下:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Shorthand Symbol</th>
+<th>GAMS Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ACRNM</td>
+<td>acronym</td>
+</tr>
+<tr class="even">
+<td>EQU</td>
+<td>equation</td>
+</tr>
+<tr class="odd">
+<td>FILE</td>
+<td>put file</td>
+</tr>
+<tr class="even">
+<td>MODEL</td>
+<td>model</td>
+</tr>
+<tr class="odd">
+<td>PARAM</td>
+<td>parameter</td>
+</tr>
+<tr class="even">
+<td>SET</td>
+<td>set</td>
+</tr>
+<tr class="odd">
+<td>VAR</td>
+<td>variable</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>后面几列会给出符号在第几行声明(declared)，在第几行隐式的制定，第几行被引用。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">declared       37</span><br><span class="line">impl-asn       50</span><br><span class="line">ref            39       45       46     2*47       51</span><br></pre></td></tr></table></figure></p>
+<p>完整的引用类型列表和对应的简写如下：</p>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Shorthand Symbol</th>
+<th>Reference Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>declared</td>
+<td>Declaration</td>
+<td>The identifier is declared as to type. This must be the first appearance of the identifier.</td>
+</tr>
+<tr class="even">
+<td>defined</td>
+<td>Definition</td>
+<td>An initialization (for a table or a data list between slashes) or symbolic definition (for an equation) starts for the identifier.</td>
+</tr>
+<tr class="odd">
+<td>assigned</td>
+<td>Assignment</td>
+<td>Values are replaced because the identifier appears on the left-hand side of an assignment statement.</td>
+</tr>
+<tr class="even">
+<td>impl-asn</td>
+<td>Implicit Assignment</td>
+<td>An equation or variable will be updated as a result of being referred to implicitly in a solve statement.</td>
+</tr>
+<tr class="odd">
+<td>control</td>
+<td>Control</td>
+<td>A set is used as (part of) the driving index in an assignment, equation, loop or indexed operation.</td>
+</tr>
+<tr class="even">
+<td>ref</td>
+<td>Reference</td>
+<td>The symbol has been referenced on the right-hand side of an assignment or in a display, equation, model, solve statement or put statetement.</td>
+</tr>
+<tr class="odd">
+<td>index</td>
+<td>Index</td>
+<td>Like control, but used only for set labels. Appears only in the cross reference map of unique elements. See section The Unique Element Listing Map for details.</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/02/日语学习语法篇-状态表示/" rel="next" title="日语学习语法篇-状态表示">
+                <i class="fa fa-chevron-left"></i> 日语学习语法篇-状态表示
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/13/Hexo页面添加音乐/" rel="prev" title="Hexo页面添加背景音乐">
+                Hexo页面添加背景音乐 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/Ortelpa-sisyphus.jpg" alt="Sisyphus">
+            
+              <p class="site-author-name" itemprop="name">Sisyphus</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型示例"><span class="nav-number">2.</span> <span class="nav-text">模型示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译输出"><span class="nav-number">3.</span> <span class="nav-text">1.编译输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#符号引用图"><span class="nav-number">3.1.</span> <span class="nav-text">1.2 符号引用图</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	
+	<div id="music_player">
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/_KesJL5EVjg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</div>
+	
+	<!-- <div id="music_player"> -->
+ <!--  -->
+	  <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/_KesJL5EVjg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+     <!--  -->
+	<!-- </div> -->
+	
+	
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sisyphus</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>

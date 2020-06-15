@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="整数规划 &amp;gt;整理自《最优化理论与算法》-陈宝林 　　除目标函数和约束函数是线性函数外，还要求决策变量取整数值，这类问题称为线性整数规划，剪成为整数规划。其中，如果要求所有变量取整数，则称为纯整数规划；如果要求部分变量取整数值，则称为混合整数规划；如果要求变量只取0或1，则称为0-1规划，一般表示为 \[ \begin{aligned} 　　　　　　　　　min　&amp;amp;cx \\">
+<meta property="og:type" content="article">
+<meta property="og:title" content="整数规划">
+<meta property="og:url" content="http://yoursite.com/2018/12/03/整数规划/index.html">
+<meta property="og:site_name" content="Dreamlike">
+<meta property="og:description" content="整数规划 &amp;gt;整理自《最优化理论与算法》-陈宝林 　　除目标函数和约束函数是线性函数外，还要求决策变量取整数值，这类问题称为线性整数规划，剪成为整数规划。其中，如果要求所有变量取整数，则称为纯整数规划；如果要求部分变量取整数值，则称为混合整数规划；如果要求变量只取0或1，则称为0-1规划，一般表示为 \[ \begin{aligned} 　　　　　　　　　min　&amp;amp;cx \\">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-04T01:21:38.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="整数规划">
+<meta name="twitter:description" content="整数规划 &amp;gt;整理自《最优化理论与算法》-陈宝林 　　除目标函数和约束函数是线性函数外，还要求决策变量取整数值，这类问题称为线性整数规划，剪成为整数规划。其中，如果要求所有变量取整数，则称为纯整数规划；如果要求部分变量取整数值，则称为混合整数规划；如果要求变量只取0或1，则称为0-1规划，一般表示为 \[ \begin{aligned} 　　　　　　　　　min　&amp;amp;cx \\">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/03/整数规划/">
+
+
+
+
+
+  <title>整数规划 | Dreamlike</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dreamlike</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/03/整数规划/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sisyphus">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Ortelpa-sisyphus.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dreamlike">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">整数规划</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-03T09:50:07+08:00">
+                2018-12-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Study/" itemprop="url" rel="index">
+                    <span itemprop="name">Study</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="整数规划">整数规划</h1>
+<h2 id="整理自最优化理论与算法-陈宝林">&gt;整理自《最优化理论与算法》-陈宝林</h2>
+<p><br>　　除目标函数和约束函数是线性函数外，还要求决策变量取整数值，这类问题称为<strong>线性整数规划</strong>，剪成为<strong>整数规划</strong>。其中，如果要求<strong>所有</strong>变量取整数，则称为<strong>纯整数规划</strong>；如果要求部分变量取整数值，则称为<strong>混合整数规划</strong>；如果要求变量只取0或1，则称为<strong>0-1规划</strong>，一般表示为<br> <span class="math display">\[
+\begin{aligned}
+　　　　　　　　　min　&amp;cx
+\\s.t.　&amp;Ax=b　　　　　　　　　　　　(P_0)\\&amp;
+x\geq 0，x_i为整数，\forall j\in IN
+\end{aligned}
+\]</span> 　　其中<span class="math inline">\(IN\)</span>是取整数的变量的下标记集，<span class="math inline">\(A\)</span>为<span class="math inline">\(m\times n\)</span>矩阵，<span class="math inline">\(c\)</span>是<span class="math inline">\(n\)</span>维行向量，<span class="math inline">\(b\)</span>是<span class="math inline">\(m\)</span>维列向量。 　　在求解整数规划时，容易想到先解相应的线性规划，得到最优解后再四舍五入，作为整数规划的最优解。然而，这种作法一般不可取，经四舍五入得到的解不一定是整数规划的<strong>可行解</strong>；即使是可行解，也不一定是整数规划的最优解，例如下列整数规划： <span class="math display">\[
+\begin{aligned}
+min　&amp;-13x_1-3x_2\\
+s.t.　&amp;-8x_1+11x_2\leq 82,\\
+&amp;9x_1+2x_2\leq 40,\\
+&amp;x_1,x_2\geq 0,x_1,x_2取整数值
+\end{aligned}
+\]</span> 　　去掉整数限制后，用单纯形方法求得线性规划的最优解为<span class="math inline">\((x_1,x_2)=(2.4,9.2)^T\)</span>,目标函数最优值<span class="math inline">\(f=-58.8\)</span>。去掉尾数0.4和0.2后，得到的整数点<span class="math inline">\((x_1,x_2)=(2,9)\)</span>，不满足第1个约束条件，因此不是整数规划的可行点，当然不是整数规划的最优解。事实上，整数规划存在最优解，其最优解就是<span class="math inline">\(x_1=4,x_2=2\)</span>，目标函数的最优值<span class="math inline">\(f=-58\)</span>。因此，一般来说，不宜用线性规划最优解的整数部分作为整数规划的最优解。</p>
+<p>##分支定界法 　　分支定界法是求解整数规划广泛使用的一种方法，计算方法过程涉及三个基本概念。</p>
+<h3 id="松弛">1. 松弛</h3>
+<p>将整数规划<span class="math inline">\((P_0)\)</span>去掉整数性约束，得到线性规划</p>
+<p><span class="math display">\[
+\begin{aligned}
+　　　　　　　　　　　　min　&amp;cx\\
+s.t.　&amp;Ax=b,　　　　　　　　　　　　　　(\overline{P}_0)\\
+&amp;x\geq0.
+\end{aligned}
+\]</span> 称<span class="math inline">\(\overline{P}_0\)</span>为整数规划<span class="math inline">\((P_0)\)</span>的松弛问题。</p>
+<p>　　整数规划<span class="math inline">\((P_0)\)</span>与它的松弛问题<span class="math inline">\(\overline{P}_0\)</span>之间有下列关系：</p>
+<p>（1）若<span class="math inline">\(\overline{P}_0\)</span>没有可行解，则<span class="math inline">\({P}_0\)</span>无可行解；</p>
+<p>（2）<span class="math inline">\(\overline{P}_0\)</span>的最小值给出<span class="math inline">\({P}_0\)</span>的最小值的下界<span class="math inline">\(F_l\)</span>;</p>
+<p>（3）若<span class="math inline">\({\overline{P}_0}\)</span>的最优解是<span class="math inline">\(P_0\)</span>的可行解，则也是<span class="math inline">\(\overline{p}_0\)</span>的最优解。</p>
+<p>###2.分解</p>
+<p>设整数规划问题<span class="math inline">\((P_0)\)</span>的可行集为<span class="math inline">\(S(P_0)\)</span>，子问题<span class="math inline">\((P_1),...,(P_k)\)</span>的可行集分别为<span class="math inline">\(S(P_1),...,S(P_k)\)</span>，每个子问题与<span class="math inline">\((P_0)\)</span>有相同的目标函数，满足条件<span class="math inline">\(\overset{k}{\underset{i=1}{\bigcup}}S(P_i)=S(P_0)\)</span>及<span class="math inline">\(S(P_i)\bigcap S(P_j)=\emptyset,\forall i\ne j\)</span>，则称<span class="math inline">\((P_0)\)</span>分解成子问题<span class="math inline">\((P_1),...,(P_k)\)</span>之和。</p>
+<p>下面给出一种分解方法：</p>
+<p>设松弛问题<span class="math inline">\(\overline{P}_0\)</span>的最优解不满足<span class="math inline">\((P_0)\)</span>中整数性要求，任选一个不满足整数性要求的变量<span class="math inline">\(x_j\)</span>，设其取值为<span class="math inline">\(b_j\)</span>，用<span class="math inline">\([\overline{b}_j]\)</span>表示小于<span class="math inline">\(\overline{b}_j\)</span>的最大整数，将约束<span class="math inline">\(x_i\leq [\overline{b}_j]\)</span>和<span class="math inline">\(x_j\geq [\overline{b}_j]+1\)</span>分别置于问题<span class="math inline">\((P_0)\)</span>中，则将<span class="math inline">\((P_0)\)</span>分解成下列两个子问题： <span class="math display">\[
+\begin{aligned}
+　　　　　　　　　　　min　&amp;cx\\
+s.t.　&amp;Ax=b,　　　　　　　　　　　　　　(P_1)\\
+&amp;x_j\leq [\overline{b}_j],\\
+&amp;x\geq 0,x_j为整数，\forall j\in IN
+\end{aligned}
+\]</span> 和 <span class="math display">\[
+\begin{aligned}
+　　　　　　　　　　　min　&amp;cx\\
+s.t.　&amp;Ax=b,　　　　　　　　　　　　　　(P_2)\\
+&amp;x_j\geq [\overline{b}_j]+1,\\
+&amp;x\geq 0,x_j为整数，\forall j\in IN
+\end{aligned}
+\]</span></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/30/Film/" rel="next" title="Film">
+                <i class="fa fa-chevron-left"></i> Film
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/04/《黑格尔哲学讲演集》阅读札记/" rel="prev" title="《黑格尔哲学讲演集》阅读札记">
+                《黑格尔哲学讲演集》阅读札记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/Ortelpa-sisyphus.jpg" alt="Sisyphus">
+            
+              <p class="site-author-name" itemprop="name">Sisyphus</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#整数规划"><span class="nav-number">1.</span> <span class="nav-text">整数规划</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#整理自最优化理论与算法-陈宝林"><span class="nav-number">1.1.</span> <span class="nav-text">&gt;整理自《最优化理论与算法》-陈宝林</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#松弛"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 松弛</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	
+	<div id="music_player">
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/_KesJL5EVjg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</div>
+	
+	<!-- <div id="music_player"> -->
+ <!--  -->
+	  <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/_KesJL5EVjg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+     <!--  -->
+	<!-- </div> -->
+	
+	
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sisyphus</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
