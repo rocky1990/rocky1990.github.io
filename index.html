@@ -150,6 +150,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://rocky1990.github.io/2020/06/25/NetworkX-%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Ortelpa-sisyphus.jpg">
+      <meta itemprop="name" content="Sisyphus">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dreamlike">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/25/NetworkX-%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">NetworkX 使用学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2020-06-25 11:13:00 / 修改時間：03:15:07" itemprop="dateCreated datePublished" datetime="2020-06-25T11:13:00Z">2020-06-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index"><span itemprop="name">Code</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>584</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>参考:https://networkx.github.io/documentation/stable/tutorial.html#adding-attributes-to-graphs-nodes-and-edges</p>
+<p>引入networkx以及绘图所需的matplotlib。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> networkx <span class="keyword">as</span> nx</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+<h1 id="图点与边">1.图、点与边</h1>
+<p>生成空图，不包含<strong>点</strong>和<strong>边</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">G = nx.Graph()</span><br></pre></td></tr></table></figure>
+<p>向图G中添加点。可一次只添加一个或直接添加列表。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">G.add_node(<span class="number">1</span>)</span><br><span class="line">G.add_nodes_from([<span class="number">2</span>,<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+<p>此时可以显示G包含的点的数目。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">G.number_of_nodes()</span><br></pre></td></tr></table></figure>
+<pre><code>3</code></pre>
+<p>清除G的内容。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">G.clear()</span><br></pre></td></tr></table></figure>
+<p>类似的方式可生成单个边或一系列的边。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">G.add_edge(<span class="string">'a'</span>,<span class="string">'b'</span>)</span><br><span class="line">G.add_edges_from(([<span class="string">'c'</span>,<span class="string">'d'</span>],[<span class="string">'e'</span>,<span class="string">'f'</span>]))</span><br><span class="line">print(G.number_of_nodes())<span class="comment"># 显示当前节点数目</span></span><br><span class="line">print(G.number_of_edges())<span class="comment"># 显示当前边的数目</span></span><br></pre></td></tr></table></figure>
+<pre><code>6
+3</code></pre>
+<p>文档中介绍，任意hasable的对象都可以作为点，常用的如：数字或字符。而边又可与任意object建立联系，<code>G.add_edge(n1, n2, object=x)</code>。</p>
+<h1 id="section">2.</h1>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
     <link itemprop="mainEntityOfPage" href="https://rocky1990.github.io/2020/06/16/Hexo-blog-%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E7%9A%84%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1117,105 +1218,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://rocky1990.github.io/2018/12/05/%E3%80%8A%E7%B2%BE%E7%A5%9E%E7%8E%B0%E8%B1%A1%E5%AD%A6%E3%80%8B%E6%9C%AD%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Ortelpa-sisyphus.jpg">
-      <meta itemprop="name" content="Sisyphus">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dreamlike">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/12/05/%E3%80%8A%E7%B2%BE%E7%A5%9E%E7%8E%B0%E8%B1%A1%E5%AD%A6%E3%80%8B%E6%9C%AD%E8%AE%B0/" class="post-title-link" itemprop="url">《精神现象学》札记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2018-12-04 23:31:59" itemprop="dateCreated datePublished" datetime="2018-12-04T23:31:59Z">2018-12-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2018-12-09 02:01:02" itemprop="dateModified" datetime="2018-12-09T02:01:02Z">2018-12-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Philosophy/" itemprop="url" rel="index"><span itemprop="name">Philosophy</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="文章字數">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">文章字數：</span>
-              <span>859</span>
-            </span>
-            <span class="post-meta-item" title="所需閱讀時間">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>1 分鐘</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="第一篇-意识">第一篇 意识</h1>
-<h2 id="第二章-知觉或事物和假象">第二章 知觉；或事物和假象</h2>
-<h3 id="二事物的矛盾概念">[二、事物的矛盾概念]</h3>
-<p>所谓的<strong>知觉者</strong>，就是将事物作为自己对象的<strong>意识</strong>。当<strong>采纳</strong>对象时，抱有<strong>纯粹统握</strong>的态度，也就是在意识里不加预设的、不加改变的，这时得到的从属与意识的东西，就是真实的东西。而假如意识在采纳对象时有所作为，有所增改，那么真理就会出现改变、扭曲、曲解。</p>
-<h1 id="第三篇-bb精神-第六章-精神">第三篇 （BB）精神 第六章 精神</h1>
-<p><strong>精神</strong>是<strong>理性</strong>进化的下一个形态，在该阶段理性确信自身既是一切实在性的这一确定性已被提升为真理性，并且理性意识到它自的自身即是它的世界、而世界既是它的自身。(外在他物与内在意识的统一)</p>
-<p>接下来探讨<strong>伦理实体</strong>，目前被标为精神<strong>本质</strong>。这里反复提及<strong>现实性</strong>、<strong>活的</strong>这样的词语。强调“伦理”这个概念不仅仅只是停留在人的意识里，还是<strong>行动</strong>出来的，是一种<strong>作品</strong>。</p>
-<p>意识迄今为止的一切形态都是精神这一<strong>本质</strong>的一些抽象。这些意识形态，意识到精神在分析自己，在区别自己的各个环节并<strong>停留</strong>于那些个别环节之上。这里用到<strong>停留</strong>一词，即说明各个意识形态是一种惰性的阶段，如果不挪动脚步继续前行，就仅仅只停固在一定的位置或水平上。就像书中后面讲到，这些环节在孤立中有这样的假象，仿佛他们真是些孤立的环节。意识形态之所以能够进步就是各个环节的意识形态对自己的反思。当精神反思时执著于这样的环节时，即它自己是<strong>对象性地存在着</strong>的现实性，即没有以自己作为对象，而只是像懵懂的婴儿般的感受这个世界时，精神就是本身包含着感性确定性、知觉和知性的一般意识。反之，当精神执著于分析的另一个环节，即它的对象就是它的自为存在时，那么精神就是自我意识(似乎是说外在对象是精神通过自身努力创造出来的，也就是说精神是外界的本质)。</p>
-<h2 id="一真实的精神伦理">一、真实的精神、伦理</h2>
-<h3 id="iii.抽象的人格世界主宰">[III.抽象的人格，世界主宰]</h3>
-<p>这里提到<strong>世界主宰</strong>这个概念，类似与<strong>君主</strong>，是众多单一的<strong>人格</strong>的所选择出来的。由于个别的<strong>人格</strong>在脱离多数人的时候，是孤单的且无力的，则当一个人被推举成为一个与绝大多数对立的<strong>世界主宰</strong>这样一个角色的时候，也没有能力掌控其权力。因而就会有着巨无霸式的放纵无忌，并对他的臣民们采用摧毁性暴力。</p>
-<h2 id="二自我异化了的精神教化">二、自我异化了的精神，教化</h2>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1287,7 +1289,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -1296,6 +1298,10 @@
           
         <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">標籤</span>
       </div>
   </nav>
 </div>
@@ -1332,12 +1338,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="總字數">50k</span>
+    <span title="總字數">51k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="所需總閱讀時間">45 分鐘</span>
+    <span title="所需總閱讀時間">46 分鐘</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
   </div>
