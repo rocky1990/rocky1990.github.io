@@ -173,10 +173,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
-              
 
-              <time title="創建時間：2020-06-25 11:13:00 / 修改時間：03:15:07" itemprop="dateCreated datePublished" datetime="2020-06-25T11:13:00Z">2020-06-25</time>
+              <time title="創建時間：2020-06-25 11:13:00" itemprop="dateCreated datePublished" datetime="2020-06-25T11:13:00Z">2020-06-25</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-06-26 03:50:36" itemprop="dateModified" datetime="2020-06-26T03:50:36Z">2020-06-26</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -193,14 +199,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>584</span>
+              <span>3.4k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>1 分鐘</span>
+              <span>3 分鐘</span>
             </span>
 
         </div>
@@ -219,19 +225,73 @@
 <h1 id="图点与边">1.图、点与边</h1>
 <p>生成空图，不包含<strong>点</strong>和<strong>边</strong>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">G = nx.Graph()</span><br></pre></td></tr></table></figure>
-<p>向图G中添加点。可一次只添加一个或直接添加列表。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">G.add_node(<span class="number">1</span>)</span><br><span class="line">G.add_nodes_from([<span class="number">2</span>,<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+<p>向图G中添加点。可一次只添加一个或直接添加列表。检索方式跟一维list类似。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">G.add_node(<span class="number">1</span>)</span><br><span class="line">G.add_nodes_from([<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">G.nodes[<span class="number">1</span>] <span class="comment"># 检索获取点的方式1</span></span><br><span class="line">G[<span class="number">1</span>] <span class="comment"># 检索获取点的方式2</span></span><br><span class="line">print(G.nodes()) <span class="comment"># 获取所有点的名称</span></span><br><span class="line">print(G.nodes.data()) <span class="comment"># 获取所有点的名称及相应的属性</span></span><br></pre></td></tr></table></figure>
+<pre><code>[1, 2, 3]
+[(1, {}), (2, {}), (3, {})]</code></pre>
 <p>此时可以显示G包含的点的数目。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">G.number_of_nodes()</span><br></pre></td></tr></table></figure>
 <pre><code>3</code></pre>
 <p>清除G的内容。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">G.clear()</span><br></pre></td></tr></table></figure>
-<p>类似的方式可生成单个边或一系列的边。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">G.add_edge(<span class="string">'a'</span>,<span class="string">'b'</span>)</span><br><span class="line">G.add_edges_from(([<span class="string">'c'</span>,<span class="string">'d'</span>],[<span class="string">'e'</span>,<span class="string">'f'</span>]))</span><br><span class="line">print(G.number_of_nodes())<span class="comment"># 显示当前节点数目</span></span><br><span class="line">print(G.number_of_edges())<span class="comment"># 显示当前边的数目</span></span><br></pre></td></tr></table></figure>
+<p>类似的方式可生成单个边或一系列的边。检索方式跟二维list类似。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">G.add_edge(<span class="string">'a'</span>,<span class="string">'b'</span>)</span><br><span class="line">G.add_edges_from(([<span class="string">'c'</span>,<span class="string">'d'</span>],[<span class="string">'e'</span>,<span class="string">'f'</span>]))</span><br><span class="line">print(G.number_of_nodes())<span class="comment"># 显示当前节点数目</span></span><br><span class="line">print(G.number_of_edges())<span class="comment"># 显示当前边的数目</span></span><br><span class="line">G.edges[<span class="string">'a'</span>,<span class="string">'b'</span>] <span class="comment"># 检索获取边的方式1</span></span><br><span class="line">G[<span class="string">'a'</span>][<span class="string">'b'</span>] <span class="comment"># 检索获取边的方式2</span></span><br></pre></td></tr></table></figure>
 <pre><code>6
-3</code></pre>
+3
+
+
+
+
+
+{}</code></pre>
 <p>文档中介绍，任意hasable的对象都可以作为点，常用的如：数字或字符。而边又可与任意object建立联系，<code>G.add_edge(n1, n2, object=x)</code>。</p>
-<h1 id="section">2.</h1>
+<p>一个Graph也可以从另一个Graph继承过来点或边。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">H = nx.path_graph(<span class="number">10</span>)</span><br><span class="line">G.add_nodes_from(H)</span><br><span class="line">G.add_edges_from(H.edges)</span><br></pre></td></tr></table></figure>
+<h1 id="向图形节点和边添加属性">2.向图形、节点和边添加属性</h1>
+<p>除去图、点和边之间的包含以及连接的关系外，各个个体还可包含有自身相关的信息，例如名称、颜色或重量等等的属性。 属性的结构为：键/值(key/value)，键应当是hasable的,也就是说属性是一个字典结构。属性默认为空，但是可以通过<code>add_edge</code>,<code>add_node</code> 进行修改。对于图G来说，也可以直接操作属性字典:<code>G.graph</code>,<code>G.nodes</code>,<code>G.edges</code>,于修改字典的操作相同。</p>
+<h2 id="图的属性">图的属性</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">G = nx.Graph(day=<span class="string">"Friday"</span>)</span><br><span class="line">print(G.graph) <span class="comment"># 显示属性 键/值</span></span><br><span class="line">print(G.graph[<span class="string">'day'</span>])<span class="comment"># 显示某个属性的值</span></span><br><span class="line">G.graph[<span class="string">'day'</span>]=<span class="string">'Monday'</span></span><br><span class="line">print(G.graph) <span class="comment"># 显示属性 键/值</span></span><br></pre></td></tr></table></figure>
+<pre><code>{&#39;day&#39;: &#39;Friday&#39;}
+Friday
+{&#39;day&#39;: &#39;Monday&#39;}</code></pre>
+<h2 id="点的属性">点的属性</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">G.add_node(<span class="number">1</span>, time=<span class="string">'5pm'</span>)</span><br><span class="line">G.add_nodes_from([<span class="number">3</span>], time=<span class="string">'2pm'</span>)</span><br><span class="line">print(G.nodes[<span class="number">1</span>]) <span class="comment"># 获取节点1的属性 注意用的是索引符号'[]'</span></span><br><span class="line">G.nodes[<span class="number">1</span>][<span class="string">'room'</span>] = <span class="number">714</span></span><br><span class="line">G.nodes.data()</span><br></pre></td></tr></table></figure>
+<pre><code>{&#39;time&#39;: &#39;5pm&#39;}
+
+
+
+
+
+NodeDataView({1: {&#39;time&#39;: &#39;5pm&#39;, &#39;room&#39;: 714}, 3: {&#39;time&#39;: &#39;2pm&#39;}})</code></pre>
+<h2 id="边的属性">边的属性</h2>
+<p>特殊属性<code>weight</code>应该是数字，因为它被需要加权边缘的算法使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">G.add_edge(<span class="number">1</span>, <span class="number">2</span>, weight=<span class="number">4.7</span> )</span><br><span class="line">G.add_edges_from([(<span class="number">3</span>, <span class="number">4</span>), (<span class="number">4</span>, <span class="number">5</span>)], color=<span class="string">'red'</span>)</span><br><span class="line">G.add_edges_from([(<span class="number">1</span>, <span class="number">2</span>, &#123;<span class="string">'color'</span>: <span class="string">'blue'</span>&#125;), (<span class="number">2</span>, <span class="number">3</span>, &#123;<span class="string">'weight'</span>: <span class="number">8</span>&#125;)])</span><br><span class="line">G[<span class="number">1</span>][<span class="number">2</span>][<span class="string">'weight'</span>] = <span class="number">4.7</span></span><br><span class="line">G.edges[<span class="number">3</span>, <span class="number">4</span>][<span class="string">'weight'</span>] = <span class="number">4.2</span></span><br></pre></td></tr></table></figure>
+<h1 id="访问相邻节点">3.访问相邻节点</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FG = nx.Graph()</span><br><span class="line">FG.add_weighted_edges_from([(<span class="number">1</span>, <span class="number">2</span>, <span class="number">0.125</span>), (<span class="number">1</span>, <span class="number">3</span>, <span class="number">0.75</span>), (<span class="number">2</span>, <span class="number">4</span>, <span class="number">1.2</span>), (<span class="number">3</span>, <span class="number">4</span>, <span class="number">0.375</span>)])</span><br><span class="line">print(FG.adj.items())<span class="comment"># 显示相邻的节点，无向图的情况下</span></span><br><span class="line">print(list(FG.neighbors(<span class="number">1</span>)))<span class="comment"># 显示节点1的相邻节点的名称</span></span><br><span class="line">print(list(FG.adj[<span class="number">1</span>]))<span class="comment"># 显示节点1的相邻节点的名称 与上一句作用相等</span></span><br></pre></td></tr></table></figure>
+<pre><code>ItemsView(AdjacencyView({1: {2: {&#39;weight&#39;: 0.125}, 3: {&#39;weight&#39;: 0.75}}, 2: {1: {&#39;weight&#39;: 0.125}, 4: {&#39;weight&#39;: 1.2}}, 3: {1: {&#39;weight&#39;: 0.75}, 4: {&#39;weight&#39;: 0.375}}, 4: {2: {&#39;weight&#39;: 1.2}, 3: {&#39;weight&#39;: 0.375}}}))
+[2, 3]
+[2, 3]</code></pre>
+<h1 id="绘图">4.绘图</h1>
+<p>参考文档中给出了draw函数的详细参数<code>draw(G, pos=None, ax=None, **kwds)</code>。其中pos的介绍如下： * <strong>pos</strong> (dictionary, optional) – A dictionary with nodes as keys and positions as values. If not specified a spring layout positioning will be computed. See networkx.drawing.layout for functions that compute node positions. 也就是说pos是一个字典结构，节点的名称作为key，坐标list作为value。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTG = nx.Graph()</span><br><span class="line">HTG.add_nodes_from([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">HTG.add_edges_from(([<span class="number">1</span>,<span class="number">2</span>],[<span class="number">2</span>,<span class="number">3</span>],[<span class="number">3</span>,<span class="number">1</span>]))</span><br><span class="line">pos=&#123;<span class="number">1</span>:[<span class="number">0</span>,<span class="number">1</span>],<span class="number">2</span>:[<span class="number">1</span>,<span class="number">1</span>],<span class="number">3</span>:[<span class="number">2</span>,<span class="number">2</span>]&#125;</span><br><span class="line">nx.draw(HTG,pos=pos, with_labels=<span class="keyword">True</span>, font_weight=<span class="string">'bold'</span>)</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/2020/06/25/NetworkX-%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0//output_28_0.png" alt="png"><figcaption>png</figcaption>
+</figure>
+<h1 id="有向图">5.有向图</h1>
+<p>DiGraph 类为有方向的边提供了额外的属性，例如<code>DiGraph.out_edges()</code>,<code>DiGraph.in_degree()</code>,<code>DiGraph.predecessors()</code>,<code>DiGraph.successors()</code>,等等。为使算法在处理不同类上更加便利，有方向版本的<code>neighbors</code>等价于<code>successors()</code>。同时<code>degree</code>表示<code>in_degree</code>和<code>out_degree</code>之和。这种处理有时可能感觉不是特别一致。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DG = nx.DiGraph()</span><br><span class="line">DG.add_weighted_edges_from([(<span class="number">1</span>, <span class="number">2</span>, <span class="number">0.5</span>), (<span class="number">3</span>, <span class="number">1</span>, <span class="number">0.75</span>)])</span><br><span class="line">print(DG.out_degree(<span class="number">1</span>, weight=<span class="string">'weight'</span>))</span><br><span class="line">print(DG.degree(<span class="number">1</span>, weight=<span class="string">'weight'</span>))</span><br><span class="line">print(list(DG.successors(<span class="number">1</span>)))</span><br><span class="line">print(list(DG.neighbors(<span class="number">1</span>)))</span><br><span class="line">nx.draw(DG, with_labels=<span class="keyword">True</span>, font_weight=<span class="string">'bold'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>0.5
+1.25
+[2]
+[2]</code></pre>
+<figure>
+<img src="/2020/06/25/NetworkX-%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0//output_30_1.png" alt="png"><figcaption>png</figcaption>
+</figure>
+<p>有向图可以转换为无向图。可利用<code>Graph.to_undirected()</code>或<code>Graph()</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">H1 = nx.Graph.to_undirected(DG)</span><br><span class="line">nx.draw(H1, with_labels=<span class="keyword">True</span>, font_weight=<span class="string">'bold'</span>)</span><br><span class="line">H2 = nx.Graph(DG)</span><br><span class="line">nx.draw(H2, with_labels=<span class="keyword">True</span>, font_weight=<span class="string">'bold'</span>)</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/2020/06/25/NetworkX-%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0//output_32_0.png" alt="png"><figcaption>png</figcaption>
+</figure>
 
       
     </div>
@@ -1338,12 +1398,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="總字數">51k</span>
+    <span title="總字數">53k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="所需總閱讀時間">46 分鐘</span>
+    <span title="所需總閱讀時間">49 分鐘</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
   </div>
