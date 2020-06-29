@@ -30,8 +30,9 @@
 <meta property="og:image" content="https://rocky1990.github.io/2020/06/25/NetworkX-%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0//output_28_0.png">
 <meta property="og:image" content="https://rocky1990.github.io/2020/06/25/NetworkX-%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0//output_30_1.png">
 <meta property="og:image" content="https://rocky1990.github.io/2020/06/25/NetworkX-%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0//output_32_0.png">
+<meta property="og:image" content="https://rocky1990.github.io/2020/06/25/NetworkX-%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0//output_34_1.png">
 <meta property="article:published_time" content="2020-06-25T11:13:00.000Z">
-<meta property="article:modified_time" content="2020-06-26T03:57:40.552Z">
+<meta property="article:modified_time" content="2020-06-29T07:06:04.831Z">
 <meta property="article:author" content="Sisyphus">
 <meta property="article:tag" content="NetworkX">
 <meta name="twitter:card" content="summary">
@@ -190,7 +191,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-06-26 03:57:40" itemprop="dateModified" datetime="2020-06-26T03:57:40Z">2020-06-26</time>
+                <time title="修改時間：2020-06-29 07:06:04" itemprop="dateModified" datetime="2020-06-29T07:06:04Z">2020-06-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -215,14 +216,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>3.4k</span>
+              <span>4k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>3 分鐘</span>
+              <span>4 分鐘</span>
             </span>
 
         </div>
@@ -273,6 +274,11 @@ Friday
 <h2 id="点的属性">点的属性</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">G.add_node(<span class="number">1</span>, time=<span class="string">'5pm'</span>)</span><br><span class="line">G.add_nodes_from([<span class="number">3</span>], time=<span class="string">'2pm'</span>)</span><br><span class="line">print(G.nodes[<span class="number">1</span>]) <span class="comment"># 获取节点1的属性 注意用的是索引符号'[]'</span></span><br><span class="line">G.nodes[<span class="number">1</span>][<span class="string">'room'</span>] = <span class="number">714</span></span><br><span class="line">G.nodes.data()</span><br></pre></td></tr></table></figure>
 <pre><code>{&#39;time&#39;: &#39;5pm&#39;}
+
+
+
+
+
 NodeDataView({1: {&#39;time&#39;: &#39;5pm&#39;, &#39;room&#39;: 714}, 3: {&#39;time&#39;: &#39;2pm&#39;}})</code></pre>
 <h2 id="边的属性">边的属性</h2>
 <p>特殊属性<code>weight</code>应该是数字，因为它被需要加权边缘的算法使用</p>
@@ -302,6 +308,13 @@ NodeDataView({1: {&#39;time&#39;: &#39;5pm&#39;, &#39;room&#39;: 714}, 3: {&#39;
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">H1 = nx.Graph.to_undirected(DG)</span><br><span class="line">nx.draw(H1, with_labels=<span class="keyword">True</span>, font_weight=<span class="string">'bold'</span>)</span><br><span class="line">H2 = nx.Graph(DG)</span><br><span class="line">nx.draw(H2, with_labels=<span class="keyword">True</span>, font_weight=<span class="string">'bold'</span>)</span><br></pre></td></tr></table></figure>
 <figure>
 <img src="/2020/06/25/NetworkX-%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0//output_32_0.png" alt="png"><figcaption>png</figcaption>
+</figure>
+<h2 id="点与线分别设置样式">6.点与线分别设置样式</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">DG = nx.DiGraph()</span><br><span class="line">DG.add_weighted_edges_from([(<span class="number">1</span>, <span class="number">2</span>, <span class="number">0.5</span>), (<span class="number">3</span>, <span class="number">1</span>, <span class="number">0.75</span>)])</span><br><span class="line"><span class="comment"># nx.draw(DG, with_labels=True, font_weight='bold') # 将nx.draw替换为nx.draw_networkx_nodes和nx.draw_networkx_edges</span></span><br><span class="line"><span class="comment"># 点的样式</span></span><br><span class="line">options = &#123;</span><br><span class="line">    <span class="string">'node_color'</span>: <span class="string">'blue'</span>,</span><br><span class="line">    <span class="string">'node_size'</span>: <span class="number">50</span>,</span><br><span class="line">    <span class="string">'alpha'</span>:<span class="number">1</span>,</span><br><span class="line">&#125;</span><br><span class="line">nx.draw_networkx_nodes(DG,pos=pos,**options)</span><br><span class="line"><span class="comment"># 边的样式</span></span><br><span class="line">options = &#123;</span><br><span class="line">    <span class="string">'line_color'</span>: <span class="string">'grey'</span>,</span><br><span class="line">    <span class="string">'linewidths'</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">'width'</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">'alpha'</span>:<span class="number">0.5</span>,</span><br><span class="line">&#125;</span><br><span class="line">nx.draw_networkx_edges(DG,pos=pos,**options)</span><br></pre></td></tr></table></figure>
+<pre><code>[&lt;matplotlib.patches.FancyArrowPatch at 0x1b779db1148&gt;,
+ &lt;matplotlib.patches.FancyArrowPatch at 0x1b779daae88&gt;]</code></pre>
+<figure>
+<img src="/2020/06/25/NetworkX-%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0//output_34_1.png" alt="png"><figcaption>png</figcaption>
 </figure>
 
     </div>
@@ -384,7 +397,7 @@ NodeDataView({1: {&#39;time&#39;: &#39;5pm&#39;, &#39;room&#39;: 714}, 3: {&#39;
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#图点与边"><span class="nav-number">1.</span> <span class="nav-text">1.图、点与边</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向图形节点和边添加属性"><span class="nav-number">2.</span> <span class="nav-text">2.向图形、节点和边添加属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图的属性"><span class="nav-number">2.1.</span> <span class="nav-text">图的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#点的属性"><span class="nav-number">2.2.</span> <span class="nav-text">点的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边的属性"><span class="nav-number">2.3.</span> <span class="nav-text">边的属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#访问相邻节点"><span class="nav-number">3.</span> <span class="nav-text">3.访问相邻节点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#绘图"><span class="nav-number">4.</span> <span class="nav-text">4.绘图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#有向图"><span class="nav-number">5.</span> <span class="nav-text">5.有向图</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#图点与边"><span class="nav-number">1.</span> <span class="nav-text">1.图、点与边</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向图形节点和边添加属性"><span class="nav-number">2.</span> <span class="nav-text">2.向图形、节点和边添加属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图的属性"><span class="nav-number">2.1.</span> <span class="nav-text">图的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#点的属性"><span class="nav-number">2.2.</span> <span class="nav-text">点的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边的属性"><span class="nav-number">2.3.</span> <span class="nav-text">边的属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#访问相邻节点"><span class="nav-number">3.</span> <span class="nav-text">3.访问相邻节点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#绘图"><span class="nav-number">4.</span> <span class="nav-text">4.绘图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#有向图"><span class="nav-number">5.</span> <span class="nav-text">5.有向图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#点与线分别设置样式"><span class="nav-number">5.1.</span> <span class="nav-text">6.点与线分别设置样式</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -449,7 +462,7 @@ NodeDataView({1: {&#39;time&#39;: &#39;5pm&#39;, &#39;room&#39;: 714}, 3: {&#39;
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="總字數">53k</span>
+    <span title="總字數">54k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
