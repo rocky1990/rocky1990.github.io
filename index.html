@@ -181,7 +181,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-06-29 07:06:04" itemprop="dateModified" datetime="2020-06-29T07:06:04Z">2020-06-29</time>
+                <time title="修改時間：2020-06-30 03:01:58" itemprop="dateModified" datetime="2020-06-30T03:01:58Z">2020-06-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -199,7 +199,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>4k</span>
+              <span>4.5k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
@@ -294,11 +294,20 @@ NodeDataView({1: {&#39;time&#39;: &#39;5pm&#39;, &#39;room&#39;: 714}, 3: {&#39;
 </figure>
 <h2 id="点与线分别设置样式">6.点与线分别设置样式</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">DG = nx.DiGraph()</span><br><span class="line">DG.add_weighted_edges_from([(<span class="number">1</span>, <span class="number">2</span>, <span class="number">0.5</span>), (<span class="number">3</span>, <span class="number">1</span>, <span class="number">0.75</span>)])</span><br><span class="line"><span class="comment"># nx.draw(DG, with_labels=True, font_weight='bold') # 将nx.draw替换为nx.draw_networkx_nodes和nx.draw_networkx_edges</span></span><br><span class="line"><span class="comment"># 点的样式</span></span><br><span class="line">options = &#123;</span><br><span class="line">    <span class="string">'node_color'</span>: <span class="string">'blue'</span>,</span><br><span class="line">    <span class="string">'node_size'</span>: <span class="number">50</span>,</span><br><span class="line">    <span class="string">'alpha'</span>:<span class="number">1</span>,</span><br><span class="line">&#125;</span><br><span class="line">nx.draw_networkx_nodes(DG,pos=pos,**options)</span><br><span class="line"><span class="comment"># 边的样式</span></span><br><span class="line">options = &#123;</span><br><span class="line">    <span class="string">'line_color'</span>: <span class="string">'grey'</span>,</span><br><span class="line">    <span class="string">'linewidths'</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">'width'</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">'alpha'</span>:<span class="number">0.5</span>,</span><br><span class="line">&#125;</span><br><span class="line">nx.draw_networkx_edges(DG,pos=pos,**options)</span><br></pre></td></tr></table></figure>
-<pre><code>[&lt;matplotlib.patches.FancyArrowPatch at 0x1b779db1148&gt;,
- &lt;matplotlib.patches.FancyArrowPatch at 0x1b779daae88&gt;]</code></pre>
+<pre><code>[&lt;matplotlib.patches.FancyArrowPatch at 0x25e4dbc6948&gt;,
+ &lt;matplotlib.patches.FancyArrowPatch at 0x25e4dbca1c8&gt;]</code></pre>
 <figure>
 <img src="/2020/06/25/NetworkX-%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0//output_34_1.png" alt="png"><figcaption>png</figcaption>
 </figure>
+<h2 id="遍历边的属性">7.遍历边的属性</h2>
+<p>根据参考文档中networkx.Graph.edges的说明。该函数主要有一个data参数,当设置为True的时候返回(起点,终点,data字典),当为False的时候返回(起点,终点)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DG = nx.DiGraph()</span><br><span class="line">DG.add_weighted_edges_from([(<span class="number">1</span>, <span class="number">2</span>, <span class="number">0.5</span>), (<span class="number">3</span>, <span class="number">1</span>, <span class="number">0.75</span>)])</span><br><span class="line"><span class="keyword">for</span> u,v,d <span class="keyword">in</span> DG.edges(data=<span class="keyword">True</span>):</span><br><span class="line">    print(d[<span class="string">'weight'</span>])</span><br><span class="line">edges_list = [(u, v, d) <span class="keyword">for</span> (u, v, d) <span class="keyword">in</span> DG.edges(data=<span class="keyword">True</span>)]</span><br><span class="line">print(edges_list)</span><br><span class="line">print(edges_list[<span class="number">0</span>][<span class="number">2</span>][<span class="string">'weight'</span>])</span><br><span class="line">edges = list(DG.edges(data=<span class="keyword">True</span>))</span><br><span class="line">print(edges)</span><br><span class="line">print(edges[<span class="number">0</span>][<span class="number">2</span>][<span class="string">'weight'</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>0.5
+0.75
+[(1, 2, {&#39;weight&#39;: 0.5}), (3, 1, {&#39;weight&#39;: 0.75})]
+0.5
+[(1, 2, {&#39;weight&#39;: 0.5}), (3, 1, {&#39;weight&#39;: 0.75})]
+0.5</code></pre>
 
       
     </div>
@@ -1410,7 +1419,7 @@ NodeDataView({1: {&#39;time&#39;: &#39;5pm&#39;, &#39;room&#39;: 714}, 3: {&#39;
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="所需總閱讀時間">49 分鐘</span>
+    <span title="所需總閱讀時間">50 分鐘</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
   </div>
